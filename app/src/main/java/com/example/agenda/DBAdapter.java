@@ -19,20 +19,21 @@ public class DBAdapter {
     private SQLiteDatabase mDb;
 
     private static final String DATABASE_NAME = "Agenda";
-    private static final String SQLITE_TABLE = "People";
+    private static final String SQLITE_TABLE_USERS = "People";
+    private static final String SQLITE_TABLE_EVENTS = "Events";
     private static final int DATABASE_VERSION = 1;
 
     private final Context mCtx;
 
     private static final String DATABASE_CREATE =
-            "CREATE TABLE if not exists " + SQLITE_TABLE + " (" +
+            "CREATE TABLE if not exists " + SQLITE_TABLE_USERS + " (" +
                     KEY_ROWID + " integer PRIMARY KEY autoincrement," +
                     KEY_NAME + "," +
                     KEY_SURNAME + "," +
                     " UNIQUE (" + KEY_ROWID +"));";
 
     public void deletePerson(String NameToDelete) {
-        mDb.delete(SQLITE_TABLE,  "name=?", new String[]{NameToDelete});
+        mDb.delete(SQLITE_TABLE_USERS,  "name=?", new String[]{NameToDelete});
     }
 
 
@@ -53,7 +54,7 @@ public class DBAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + SQLITE_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + SQLITE_TABLE_USERS);
             onCreate(db);
         }
     }
@@ -82,13 +83,13 @@ public class DBAdapter {
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_SURNAME, surname);
 
-        return mDb.insert(SQLITE_TABLE, null, initialValues);
+        return mDb.insert(SQLITE_TABLE_USERS, null, initialValues);
     }
 
     public boolean deleteAllPersons() {
 
         int doneDelete = 0;
-        doneDelete = mDb.delete(SQLITE_TABLE, null , null);
+        doneDelete = mDb.delete(SQLITE_TABLE_USERS, null , null);
         Log.w(TAG, Integer.toString(doneDelete));
         return doneDelete > 0;
 
@@ -98,13 +99,13 @@ public class DBAdapter {
         Log.w(TAG, inputText);
         Cursor mCursor = null;
         if (inputText == null  ||  inputText.length () == 0)  {
-            mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID,
+            mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
                             KEY_NAME, KEY_SURNAME},
                     null, null, null, null, null);
 
         }
         else {
-            mCursor = mDb.query(true, SQLITE_TABLE, new String[] {KEY_ROWID,
+            mCursor = mDb.query(true, SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
                             KEY_NAME, KEY_SURNAME},
                     KEY_NAME + " like '%" + inputText + "%'", null,
                     null, null, null, null);
@@ -118,7 +119,7 @@ public class DBAdapter {
 
     public Cursor fetchAllPersons() {
 
-        Cursor mCursor = mDb.query(SQLITE_TABLE, new String[] {KEY_ROWID,
+        Cursor mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
                         KEY_NAME, KEY_SURNAME},
                 null, null, null, null, null);
 
