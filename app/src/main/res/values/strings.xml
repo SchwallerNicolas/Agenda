@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Agenda</string>
+    <string name="utilisateurs">Utilisateurs</string>
+    <string name="v_nements">Évènements</string>
 </resources>
