@@ -1,8 +1,16 @@
 package com.example.agenda;
 
 public class Person {
-    String surname = null;
+    int id = 0;
     String name = null;
+    String surname = null;
+
+    public int getId() {
+        return id;
+    }
+    public void setId(String name) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
@@ -15,5 +23,7 @@ public class Person {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
 }
+
 
