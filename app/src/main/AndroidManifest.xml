@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Agenda">
-        <activity android:name=".AjoutEvent"></activity>
-        <activity android:name=".InsertData" />
+        <activity android:name=".AddUser"></activity>
+        <activity android:name=".AjoutEvent" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

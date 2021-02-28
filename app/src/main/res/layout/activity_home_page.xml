@@ -1,55 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomePageActivity">
+    tools:context=".MainActivity"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <android.widget.Toolbar
+        android:id="@+id/maBarreOutils"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="83dp"
+        android:layout_height="55dp"
+        android:layout_alignRight="@id/maBarreOutils"
+        android:layout_marginLeft="5dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <TextView
-        android:id="@+id/tvMenu"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agenda Familial"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        android:layout_below="@id/maBarreOutils"
+        android:padding="10dp"
+        android:text="Utilisateurs"
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+    <EditText android:id="@+id/myFilter"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ajouter"
-        android:onClick="startdbapp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.878" />
+        android:ems="10"
+        android:hint="Chercher"
+        android:importantForAutofill="no"
+        android:layout_below="@id/textView1"
+        android:inputType="">
+        <requestFocus />
+    </EditText>
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Supprimer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.864"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.878" />
+    <ListView android:id="@+id/listView1"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/myFilter"
+        android:layout_height="wrap_content" >
+    </ListView>
 
-    <Button
-        android:id="@+id/buttonEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AJOUT EVENT"
-        android:onClick="startdbappEvent"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="655dp"
-        tools:ignore="MissingConstraints" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
