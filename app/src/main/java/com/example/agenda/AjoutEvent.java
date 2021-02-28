@@ -1,13 +1,17 @@
 package com.example.agenda;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -22,7 +26,10 @@ public class AjoutEvent extends AppCompatActivity {
     TextView tvTimer1, tvTimer2;
     int t1Hour, t1Minute, t2Hour, t2Minute;
     private CalendarView calendarView;
-
+    String selectedDate;
+    private SQLiteDatabase sqLiteDatabase;
+    private DBAdapter dbAdapter;
+    private EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +37,31 @@ public class AjoutEvent extends AppCompatActivity {
 
         tvTimer1=findViewById(R.id.tv_timer1);
         tvTimer2=findViewById(R.id.tv_timer2);
+        calendarView=findViewById(R.id.calendarView);
+        editText= findViewById(R.id.idTextNameEvent);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDate=Integer.toString(year)+Integer.toString(month)+Integer.toString(dayOfMonth);
+            }
+        });
+
+        try{
+            //dbAdapter=new dbAdapter();
+            //sqLiteDatabase=dbAdapter.getWritableDatabase();
+            //sqLiteDatabase.execSQL("");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+        /*public void InsertEventDatabase(View view){
+            ContentValues contentValues=new ContentValues();
+            contentValues.put("Date", selectedDate);
+            contentValues.put("Event", editText.getText().toString());
+            //sqLiteDatabase.insert();
+        }*/
 
         tvTimer1.setOnClickListener(new View.OnClickListener() {
             @Override

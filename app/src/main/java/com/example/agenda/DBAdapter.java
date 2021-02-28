@@ -14,6 +14,12 @@ public class DBAdapter {
     public static final String KEY_NAME = "name";
     public static final String KEY_SURNAME = "surname";
 
+    public static final String KEY_NOMEVENT = "nomEvent";
+    public static final String KEY_DATE = "Date";
+    public static final String KEY_HEUREDEB = "heureDebut";
+    public static final String KEY_HEUREFIN = "heureFin";
+    public static final String KEY_IDPARTICIPANT = "idParticipant";
+
     private static final String TAG = "PersonsDbAdapter";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
@@ -25,15 +31,26 @@ public class DBAdapter {
 
     private final Context mCtx;
 
-    private static final String DATABASE_CREATE =
+    private static final String CREATE_TABLE_PEOPLE =
             "CREATE TABLE if not exists " + SQLITE_TABLE_USERS + " (" +
                     KEY_ROWID + " integer PRIMARY KEY autoincrement," +
                     KEY_NAME + "," +
                     KEY_SURNAME + "," +
                     " UNIQUE (" + KEY_ROWID +"));";
 
+    private static final String CREATE_TABLE_EVENTS =
+            "CREATE TABLE if not exists " + SQLITE_TABLE_EVENTS + " (" +
+                    KEY_ROWID + " integer PRIMARY KEY autoincrement," +
+                    KEY_NOMEVENT + "," +
+                    KEY_DATE + "," +
+                    KEY_HEUREDEB + "," +
+                    KEY_HEUREFIN + "," +
+                    KEY_IDPARTICIPANT + "," +
+                    " UNIQUE (" + KEY_ROWID +"));";
+
     public void deletePerson(String NameToDelete) {
         mDb.delete(SQLITE_TABLE_USERS,  "name=?", new String[]{NameToDelete});
+        mDb.delete(SQLITE_TABLE_EVENTS,  "name=?", new String[]{NameToDelete});
     }
 
 
@@ -46,15 +63,18 @@ public class DBAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            Log.w(TAG, DATABASE_CREATE);
-            db.execSQL(DATABASE_CREATE);
+            Log.w(TAG, CREATE_TABLE_PEOPLE);
+            db.execSQL(CREATE_TABLE_PEOPLE);
+            Log.w(TAG, CREATE_TABLE_EVENTS);
+            db.execSQL(CREATE_TABLE_EVENTS);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + SQLITE_TABLE_USERS);
+            db.execSQL("DROP TABLE IF EXISTS '" + SQLITE_TABLE_USERS+"'");
+            db.execSQL("DROP TABLE IF EXISTS '" + SQLITE_TABLE_EVENTS+"'");
             onCreate(db);
         }
     }
