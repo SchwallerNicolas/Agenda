@@ -36,6 +36,20 @@ public class EventList extends AppCompatActivity {
         super.setActionBar(toolbar);
     }
 
+    private void DisplayListViev() {
+
+        ImageView versAjoutEvent = findViewById(R.id.imageView3);
+        versAjoutEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EventList.this, AjoutEvent.class);
+                //intent.putExtra("DB", (Serializable) dbHelper);
+                startActivityForResult(intent,1);
+            }
+        });
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
