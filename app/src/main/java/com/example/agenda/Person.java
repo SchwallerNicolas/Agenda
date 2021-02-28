@@ -1,6 +1,7 @@
 package com.example.agenda;
 
 public class Person {
+    int id = 1;
     String surname = null;
     String name = null;
     public String getName() {
