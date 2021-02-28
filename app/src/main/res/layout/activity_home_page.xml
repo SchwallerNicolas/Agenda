@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
+        android:title="@string/utilisateurs"
         android:background="?attr/colorPrimary" />
 
     <ImageView
@@ -22,22 +23,13 @@
         android:layout_marginLeft="5dp"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/maBarreOutils"
-        android:padding="10dp"
-        android:text="Utilisateurs"
-        android:textSize="20sp" />
-
     <EditText android:id="@+id/myFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Chercher"
+        android:hint="Chercher..."
         android:importantForAutofill="no"
-        android:layout_below="@id/textView1"
+        android:layout_below="@id/maBarreOutils"
         android:inputType="">
         <requestFocus />
     </EditText>
