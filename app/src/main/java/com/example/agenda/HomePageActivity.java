@@ -79,10 +79,6 @@ public class HomePageActivity extends AppCompatActivity {
         // Adapter vers ListView
         listView.setAdapter(dataAdapter);
 
-
-        // CODE A DVP POUR ACTTIVITE NICO
-
-
         /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> listView, View view,
