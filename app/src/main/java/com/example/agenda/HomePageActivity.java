@@ -79,19 +79,24 @@ public class HomePageActivity extends AppCompatActivity {
         // Adapter vers ListView
         listView.setAdapter(dataAdapter);
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> listView, View view,
                                     int position, long id) {
                 //get the cursor, positioned to corresponding row in the result set
                 Cursor cursor = (Cursor)
                         listView.getItemAtPosition(position);
-                // Get the person's name from the row in the database
+
+                /*Get the person's name from the row in the database
                 String personName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 Toast.makeText(getApplicationContext(),
-                        personName, Toast.LENGTH_SHORT).show();
+                        personName, Toast.LENGTH_SHORT).show();*/
+
+                Toast.makeText(HomePageActivity.this, "Long click to delete", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomePageActivity.this, EventList.class);
+                startActivityForResult(intent,1);
             }
-        });*/
+        });
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
