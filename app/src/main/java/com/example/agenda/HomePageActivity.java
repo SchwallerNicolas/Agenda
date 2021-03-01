@@ -25,6 +25,7 @@ import android.widget.Toolbar;
 
 public class HomePageActivity extends AppCompatActivity {
 
+    //
     public DBAdapter dbHelper;
     private SimpleCursorAdapter dataAdapter;
 
@@ -41,9 +42,9 @@ public class HomePageActivity extends AppCompatActivity {
         dbHelper = new DBAdapter(this);
         dbHelper.open();
 
-        // "Nettoyer" la donnée
+        // "Nettoyer" la bdd
         dbHelper.deleteAllPersons();
-        // Ajouter des données
+        // Ajouter des données à la bdd
         dbHelper.insertSomePersons();
 
         // Générer une ListView de SQLite DB
@@ -60,14 +61,14 @@ public class HomePageActivity extends AppCompatActivity {
                 DBAdapter.KEY_SURNAME,
         };
 
-        // XML views définis avec lequel est lié la donnée
+        // XML views définis avec lesquels est lié la donnée
         int[] to = new int[] {
                 R.id.name,
                 R.id.surname,
         };
 
         // Créer l'adapter avec un cursor pointant vers la donnée désirée
-        //avec l'information du layout aussi
+        //avec l'information du layout aussi (forme dans la liste)
         dataAdapter = new SimpleCursorAdapter(
                 this, R.layout.person_info,
                 cursor,

@@ -13,7 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:title="@string/v_nements"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary"
+        />
 
     <ImageView
         android:id="@+id/imageView3"

@@ -36,6 +36,17 @@ public class EventList extends AppCompatActivity {
         super.setActionBar(toolbar);
     }
 
+    /*
+
+
+
+
+
+    public static final String KEY_NOMEVENT = "nomEvent"; EventName
+    public static final String KEY_DATE = "Date"; EventDate
+    public static final String KEY_HEUREDEB = "heureDebut"; EventStart
+    public static final String KEY_HEUREFIN = "heureFin"; EventEnd
+    * */
     private void DisplayListViev() {
 
         ImageView versAjoutEvent = findViewById(R.id.imageView3);
@@ -43,8 +54,7 @@ public class EventList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EventList.this, AjoutEvent.class);
-                //intent.putExtra("DB", (Serializable) dbHelper);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent,0);
             }
         });
 
@@ -53,7 +63,7 @@ public class EventList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
+        if(requestCode == 0){
             //displayListView();
             dataAdapter.notifyDataSetChanged();
         }
