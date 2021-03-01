@@ -47,21 +47,7 @@ public class AjoutEvent extends AppCompatActivity {
             }
         });
 
-        try{
-            //dbAdapter=new dbAdapter();
-            //sqLiteDatabase=dbAdapter.getWritableDatabase();
-            //sqLiteDatabase.execSQL("");
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
 
-        /*public void InsertEventDatabase(View view){
-            ContentValues contentValues=new ContentValues();
-            contentValues.put("Date", selectedDate);
-            contentValues.put("Event", editText.getText().toString());
-            //sqLiteDatabase.insert();
-        }*/
 
         tvTimer1.setOnClickListener(new View.OnClickListener() {
             @Override
