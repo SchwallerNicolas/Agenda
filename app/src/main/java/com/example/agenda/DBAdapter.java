@@ -106,10 +106,31 @@ public class DBAdapter {
         return mDb.insert(SQLITE_TABLE_USERS, null, initialValues);
     }
 
+    public long createEvent(String nomEvent, String Date, String heureDebut, String heureFin, String idParticipant) {
+
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_NOMEVENT , nomEvent);
+        initialValues.put(KEY_DATE , Date);
+        initialValues.put(KEY_HEUREDEB  , heureDebut);
+        initialValues.put(KEY_HEUREFIN  , heureFin);
+        initialValues.put(KEY_IDPARTICIPANT  , idParticipant);
+
+        return mDb.insert(SQLITE_TABLE_EVENTS, null, initialValues);
+    }
+
     public boolean deleteAllPersons() {
 
         int doneDelete = 0;
         doneDelete = mDb.delete(SQLITE_TABLE_USERS, null , null);
+        Log.w(TAG, Integer.toString(doneDelete));
+        return doneDelete > 0;
+
+    }
+
+    public boolean deleteAllEvents() {
+
+        int doneDelete = 0;
+        doneDelete = mDb.delete(SQLITE_TABLE_EVENTS, null , null);
         Log.w(TAG, Integer.toString(doneDelete));
         return doneDelete > 0;
 
@@ -157,6 +178,11 @@ public class DBAdapter {
         createPerson("Lm", "MOUSSY");
         createPerson("Richard", "CRESSOL");
 
+    }
+
+    public void insertSomeEvents() {
+
+        createEvent("cours","02/03/2021", "8h30", "16h30","0;1;3");
     }
 
 }

@@ -34,6 +34,11 @@ public class EventList extends AppCompatActivity {
         // déclaration de la barre d'activité
         Toolbar toolbar = findViewById(R.id.maBarreOutils2);
         super.setActionBar(toolbar);
+
+        dbHelper = new DBAdapter(this);
+        dbHelper.open();
+
+
     }
 
     /*
