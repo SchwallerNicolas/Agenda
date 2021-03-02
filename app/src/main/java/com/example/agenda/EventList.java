@@ -38,21 +38,19 @@ public class EventList extends AppCompatActivity {
         dbHelper = new DBAdapter(this);
         dbHelper.open();
 
+        dbHelper.deleteAllEvents();
+        dbHelper.insertSomeEvents();
 
+        DisplayEventListView();
     }
 
     /*
-
-
-
-
-
     public static final String KEY_NOMEVENT = "nomEvent"; EventName
     public static final String KEY_DATE = "Date"; EventDate
     public static final String KEY_HEUREDEB = "heureDebut"; EventStart
     public static final String KEY_HEUREFIN = "heureFin"; EventEnd
-    * */
-    private void DisplayListViev() {
+    */
+    private void DisplayEventListView() {
 
         ImageView versAjoutEvent = findViewById(R.id.imageView3);
         versAjoutEvent.setOnClickListener(new View.OnClickListener() {
