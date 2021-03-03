@@ -23,7 +23,7 @@ import android.widget.Toolbar;
 public class EventList extends AppCompatActivity {
 
     public DBAdapter dbHelper;
-    private SimpleCursorAdapter dataAdapter;
+    private SimpleCursorAdapter dataAdapter2;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -52,6 +52,44 @@ public class EventList extends AppCompatActivity {
     */
     private void DisplayEventListView() {
 
+        Cursor cursor = dbHelper.fetchAllEvents();
+
+        String[] Eventcolumns = new String[] {
+                DBAdapter.KEY_NOMEVENT,
+                DBAdapter.KEY_DATE,
+                DBAdapter.KEY_HEUREDEB,
+                DBAdapter.KEY_HEUREFIN,
+        };
+
+        int[] tp = new int[] {
+                R.id.EventName,
+                R.id.EventDate,
+                R.id.EventStart,
+                R.id.EventEnd,
+        };
+
+        dataAdapter2 = new SimpleCursorAdapter( this, R.layout.event_info,
+                cursor, Eventcolumns, tp, 0);
+
+        ListView eventListview = (ListView) findViewById(R.id.listView2);
+        eventListview.setAdapter(dataAdapter2);
+
+        /* Afficher le noms des participants ? JSP si possible
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> listView, View view,
+                                   int position, long id) {
+               //get the cursor, positioned to corresponding row in the result set
+               Cursor cursor = (Cursor)
+                       listView.getItemAtPosition(position);
+               // Get the person's name from the row in the database
+               String personName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+               Toast.makeText(getApplicationContext(),
+                       personName, Toast.LENGTH_SHORT).show();
+           }
+       });*/
+
+
         ImageView versAjoutEvent = findViewById(R.id.imageView3);
         versAjoutEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +106,7 @@ public class EventList extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 0){
             //displayListView();
-            dataAdapter.notifyDataSetChanged();
+            dataAdapter2.notifyDataSetChanged();
         }
     }
 }
