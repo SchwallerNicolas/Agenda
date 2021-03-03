@@ -43,16 +43,16 @@ public class HomePageActivity extends AppCompatActivity {
         dbHelper.open();
 
         // "Nettoyer" la bdd
-        dbHelper.deleteAllPersons();
+        //dbHelper.deleteAllPersons();
         // Ajouter des données à la bdd
         dbHelper.insertSomePersons();
 
         // Générer une ListView de SQLite DB
-        displayListView();
+        displayUserListView();
     }
 
     // Montrer les personnes de la bdd dans une ListView
-    private void displayListView() {
+    private void displayUserListView() {
         Cursor cursor = dbHelper.fetchAllPersons();
 
         //Colonnes à lier
@@ -109,7 +109,7 @@ public class HomePageActivity extends AppCompatActivity {
                 String NameToDelete = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 dbHelper.deletePerson(NameToDelete);
                 Toast.makeText(HomePageActivity.this, "Delete "+parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-                displayListView();
+                displayUserListView();
                 dataAdapter.notifyDataSetChanged();
                 return false;
             }
@@ -118,17 +118,14 @@ public class HomePageActivity extends AppCompatActivity {
         EditText myFilter = (EditText) findViewById(R.id.myFilter);
         myFilter.addTextChangedListener(new TextWatcher() {
 
-            public void afterTextChanged(Editable s) {
-            }
+            public void afterTextChanged(Editable s) {}
 
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 dataAdapter.getFilter().filter(s.toString());
             }
+
         });
 
         dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
@@ -153,7 +150,7 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            displayListView();
+            displayUserListView();
             dataAdapter.notifyDataSetChanged();
         }
     }

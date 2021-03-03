@@ -19,8 +19,6 @@ public class AddUser extends HomePageActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
 
-        //dbHelper = (DBAdapter) getIntent().getExtras().getSerializable("DB");
-
         Button monBouton = findViewById(R.id.buttonAdd);
         TextView nameEntered = findViewById(R.id.editTextTextPersonName);
         TextView surnameEntered = findViewById(R.id.editTextTextPersonSurname);
