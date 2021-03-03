@@ -5,15 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,6 +33,7 @@ public class AjoutEvent extends AppCompatActivity {
     private SQLiteDatabase sqLiteDatabase;
     private DBAdapter dbAdapter;
     private EditText editText;
+    private Button buttonEvent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,7 @@ public class AjoutEvent extends AppCompatActivity {
         tvTimer2=findViewById(R.id.tv_timer2);
         calendarView=findViewById(R.id.calendarView);
         editText= findViewById(R.id.idTextNameEvent);
+        buttonEvent=findViewById(R.id.buttonEvent);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
@@ -102,6 +107,20 @@ public class AjoutEvent extends AppCompatActivity {
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 timePickerDialog.updateTime(t2Hour,t2Minute);
                 timePickerDialog.show();
+            }
+        });
+
+        buttonEvent.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                /*String  = nameEntered.getText().toString();
+                String  = surnameEntered.getText().toString().toUpperCase();
+
+
+                dbHelper.createEvent(monPrenom, monNom);
+                Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                setResult(1, intent);
+                finish();*/
             }
         });
     }

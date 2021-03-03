@@ -29,8 +29,16 @@ public class AddUser extends HomePageActivity {
             public void onClick(View v) {
                 String monPrenom = nameEntered.getText().toString();
                 String monNom = surnameEntered.getText().toString().toUpperCase();
-                dbHelper.createPerson(monPrenom, monNom);
-                Toast.makeText(AddUser.this, "Utilisateur ajouté", Toast.LENGTH_SHORT).show();
+
+                if(monPrenom.isEmpty() || monNom.isEmpty())
+                {
+                    Toast.makeText(AddUser.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
+                }else {
+                    dbHelper.createPerson(monPrenom, monNom);
+                    Toast.makeText(AddUser.this, "Utilisateur ajouté", Toast.LENGTH_SHORT).show();
+                   // et1.setText("");
+                   // et2.setText("");
+                }
                 Intent intent = new Intent();
                 setResult(1, intent);
                 finish();
