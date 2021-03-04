@@ -29,11 +29,14 @@ public class AjoutEvent extends AppCompatActivity {
     TextView tvTimer1, tvTimer2;
     int t1Hour, t1Minute, t2Hour, t2Minute;
     private CalendarView calendarView;
-    String selectedDate;
     private SQLiteDatabase sqLiteDatabase;
     private DBAdapter dbAdapter;
     private EditText editText;
     private Button buttonEvent;
+
+    String selectedDate;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,12 +116,13 @@ public class AjoutEvent extends AppCompatActivity {
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String nomEvent= editText.getText().toString();
+                //Date dateCalendar=
 
-                if(nomEvent.isEmpty())
+                if(nomEvent.isEmpty()|| selectedDate.isEmpty())
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                 }else {
-                    //dbHelper.createPe(monPrenom, monNom);
+                    //dbHelper.createEvent(nomEvent,);
                     Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();
