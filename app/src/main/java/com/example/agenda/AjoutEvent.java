@@ -126,7 +126,7 @@ public class AjoutEvent extends AppCompatActivity {
                     Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();
-                setResult(1, intent);
+                setResult(2, intent);
                 finish();
             }
         });

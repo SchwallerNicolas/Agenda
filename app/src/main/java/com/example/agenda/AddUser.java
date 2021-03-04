@@ -34,8 +34,7 @@ public class AddUser extends HomePageActivity {
                 }else {
                     dbHelper.createPerson(monPrenom, monNom);
                     Toast.makeText(AddUser.this, "Utilisateur ajouté", Toast.LENGTH_SHORT).show();
-                   // et1.setText("");
-                   // et2.setText("");
+
                 }
                 Intent intent = new Intent();
                 setResult(1, intent);
