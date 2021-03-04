@@ -157,14 +157,14 @@ public class DBAdapter {
 
     }*/
 
-    public long createEvent(String nomEvent, String Date, String heureDebut, String heureFin, String idParticipant) {
+    public long createEvent(String nomEvent, String Date, String heureDebut, String heureFin) {
 
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NOMEVENT , nomEvent);
         initialValues.put(KEY_DATE , Date);
         initialValues.put(KEY_HEUREDEB  , heureDebut);
         initialValues.put(KEY_HEUREFIN  , heureFin);
-        initialValues.put(KEY_IDPARTICIPANT  , idParticipant);
+        //initialValues.put(KEY_IDPARTICIPANT  , idParticipant);
 
         return mDb.insert(SQLITE_TABLE_EVENTS, null, initialValues);
     }
@@ -190,9 +190,9 @@ public class DBAdapter {
         return mCursor;
     }
 
-    /*public void insertSomeEvents() {
-        createEvent("cours","02/03/2021", "8h30", "16h30","0;1;3");
-    }*/
+    public void insertSomeEvents() {
+        createEvent("cours","02/03/2021", "8h30", "16h30");
+    }
 
 }
 

@@ -48,6 +48,16 @@ public class HomePageActivity extends AppCompatActivity {
 
         // Générer une ListView à partir des éléments de la BDD
         displayUserListView();
+
+        ImageView versAddUser = findViewById(R.id.imageView2);
+        versAddUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePageActivity.this, AddUser.class);
+                //intent.putExtra("DB", (Serializable) dbHelper);
+                startActivityForResult(intent,1);
+            }
+        });
     }
 
     private void displayUserListView() {
@@ -90,7 +100,7 @@ public class HomePageActivity extends AppCompatActivity {
 
                 /*String personName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 Toast.makeText(getApplicationContext(), personName, Toast.LENGTH_SHORT).show();*/
-                Toast.makeText(HomePageActivity.this, "Long click to delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomePageActivity.this, "click", Toast.LENGTH_SHORT).show();
                 Intent intentEvent = new Intent(HomePageActivity.this, EventList.class);
                 startActivity(intentEvent);
             }
@@ -128,16 +138,6 @@ public class HomePageActivity extends AppCompatActivity {
         dataAdapter.setFilterQueryProvider(new FilterQueryProvider() {
             public Cursor runQuery(CharSequence constraint) {
                 return dbHelper.fetchPersonsByName(constraint.toString());
-            }
-        });
-
-        ImageView versAddUser = findViewById(R.id.imageView2);
-        versAddUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, AddUser.class);
-                //intent.putExtra("DB", (Serializable) dbHelper);
-                startActivityForResult(intent,1);
             }
         });
 

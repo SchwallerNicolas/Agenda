@@ -38,10 +38,19 @@ public class EventList extends AppCompatActivity {
         dbHelper = new DBAdapter(this);
         dbHelper.open();
 
-        /*dbHelper.deleteAllEvents();
-        dbHelper.insertSomeEvents();*/
+        /*dbHelper.deleteAllEvents();*/
+        dbHelper.insertSomeEvents();
 
-        DisplayEventListView();
+        //DisplayEventListView();
+
+        ImageView versAjoutEvent = findViewById(R.id.imageView3);
+        versAjoutEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(EventList.this, AjoutEvent.class);
+                startActivityForResult(intent2,2);
+            }
+        });
     }
 
     /*
@@ -69,7 +78,10 @@ public class EventList extends AppCompatActivity {
         };
 
         dataAdapter2 = new SimpleCursorAdapter( this, R.layout.event_info,
-                cursor, Eventcolumns, tp, 0);
+                cursor,
+                Eventcolumns,
+                tp,
+                0);
 
         ListView eventListview = (ListView) findViewById(R.id.listView2);
         eventListview.setAdapter(dataAdapter2);
@@ -88,16 +100,6 @@ public class EventList extends AppCompatActivity {
                        personName, Toast.LENGTH_SHORT).show();
            }
        });*/
-
-
-        ImageView versAjoutEvent = findViewById(R.id.imageView3);
-        versAjoutEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(EventList.this, AjoutEvent.class);
-                startActivityForResult(intent2,2);
-            }
-        });
 
     }
 
