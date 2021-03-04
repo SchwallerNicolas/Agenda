@@ -104,14 +104,14 @@ public class DBAdapter {
         return mDb.insert(SQLITE_TABLE_USERS, null, initialValues);
     }
 
-    public boolean deleteAllPersons() {
+    /*public boolean deleteAllPersons() {
 
         int doneDelete = 0;
         doneDelete = mDb.delete(SQLITE_TABLE_USERS, null, null);
         Log.w(TAG, Integer.toString(doneDelete));
         return doneDelete > 0;
 
-    }
+    }*/
 
     public Cursor fetchPersonsByName(String inputText) throws SQLException {
         Log.w(TAG, inputText);
@@ -147,15 +147,15 @@ public class DBAdapter {
         return mCursor;
     }
 
-    public void insertSomePersons() {
+    /*public void insertSomePersons() {
 
-        /*createPerson("Nicolas", "SCHWALLER");
+        createPerson("Nicolas", "SCHWALLER");
         createPerson("Jochen", "LEMMENS");
         createPerson("Evan", "FROUIN");
         createPerson("Lm", "MOUSSY");
-        createPerson("Richard", "CRESSOL");*/
+        createPerson("Richard", "CRESSOL");
 
-    }
+    }*/
 
     public long createEvent(String nomEvent, String Date, String heureDebut, String heureFin, String idParticipant) {
 
@@ -169,19 +169,19 @@ public class DBAdapter {
         return mDb.insert(SQLITE_TABLE_EVENTS, null, initialValues);
     }
 
-    public boolean deleteAllEvents() {
+    /*public boolean deleteAllEvents() {
 
         int doneDelete = 0;
         doneDelete = mDb.delete(SQLITE_TABLE_EVENTS, null , null);
         Log.w(TAG, Integer.toString(doneDelete));
         return doneDelete > 0;
 
-    }
+    }*/
 
     public Cursor fetchAllEvents() {
 
-        Cursor mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWID,
-                        KEY_NAME, KEY_SURNAME},
+        Cursor mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_IDPARTICIPANT,
+                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
                 null, null, null, null, null);
 
         if (mCursor != null) {
@@ -190,10 +190,9 @@ public class DBAdapter {
         return mCursor;
     }
 
-    public void insertSomeEvents() {
-
+    /*public void insertSomeEvents() {
         createEvent("cours","02/03/2021", "8h30", "16h30","0;1;3");
-    }
+    }*/
 
 }
 

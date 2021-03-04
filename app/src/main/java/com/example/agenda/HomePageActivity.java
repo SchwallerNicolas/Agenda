@@ -25,7 +25,6 @@ import android.widget.Toolbar;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    //
     public DBAdapter dbHelper;
     private SimpleCursorAdapter dataAdapter;
 
@@ -42,33 +41,34 @@ public class HomePageActivity extends AppCompatActivity {
         dbHelper = new DBAdapter(this);
         dbHelper.open();
 
-        // "Nettoyer" la bdd
-        //dbHelper.deleteAllPersons();
-        // Ajouter des données à la bdd
-        dbHelper.insertSomePersons();
+        /*//"Nettoyer" la bdd
+        dbHelper.deleteAllPersons();
+        //Ajouter des données à la bdd
+        dbHelper.insertSomePersons();*/
 
-        // Générer une ListView de SQLite DB
+        // Générer une ListView à partir des éléments de la BDD
         displayUserListView();
     }
 
-    // Montrer les personnes de la bdd dans une ListView
     private void displayUserListView() {
+        // cf DBAdapter
         Cursor cursor = dbHelper.fetchAllPersons();
 
         //Colonnes à lier
         String[] columns = new String[] {
                 DBAdapter.KEY_NAME,
                 DBAdapter.KEY_SURNAME,
+                DBAdapter.KEY_ROWID,
         };
 
-        // XML views définis avec lesquels est lié la donnée
+        // Éléments définis dans le Layout XML person_info
         int[] to = new int[] {
                 R.id.name,
                 R.id.surname,
         };
 
         // Créer l'adapter avec un cursor pointant vers la donnée désirée
-        //avec l'information du layout aussi (forme dans la liste)
+        //avec l'information du layout
         dataAdapter = new SimpleCursorAdapter(
                 this, R.layout.person_info,
                 cursor,
@@ -84,18 +84,15 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> listView, View view,
                                     int position, long id) {
-                //get the cursor, positioned to corresponding row in the result set
+                //Avoir le cursor lié à la ligne qui lui correspond
                 Cursor cursor = (Cursor)
                         listView.getItemAtPosition(position);
 
-                /*Get the person's name from the row in the database
-                String personName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-                Toast.makeText(getApplicationContext(),
-                        personName, Toast.LENGTH_SHORT).show();*/
-
+                /*String personName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                Toast.makeText(getApplicationContext(), personName, Toast.LENGTH_SHORT).show();*/
                 Toast.makeText(HomePageActivity.this, "Long click to delete", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomePageActivity.this, EventList.class);
-                startActivityForResult(intent,1);
+                Intent intentEvent = new Intent(HomePageActivity.this, EventList.class);
+                startActivity(intentEvent);
             }
         });
 

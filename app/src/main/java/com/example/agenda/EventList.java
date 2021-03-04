@@ -38,8 +38,8 @@ public class EventList extends AppCompatActivity {
         dbHelper = new DBAdapter(this);
         dbHelper.open();
 
-        dbHelper.deleteAllEvents();
-        dbHelper.insertSomeEvents();
+        /*dbHelper.deleteAllEvents();
+        dbHelper.insertSomeEvents();*/
 
         DisplayEventListView();
     }
@@ -94,8 +94,8 @@ public class EventList extends AppCompatActivity {
         versAjoutEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EventList.this, AjoutEvent.class);
-                startActivityForResult(intent,0);
+                Intent intent2 = new Intent(EventList.this, AjoutEvent.class);
+                startActivityForResult(intent2,2);
             }
         });
 
@@ -104,7 +104,7 @@ public class EventList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0){
+        if(requestCode == 2){
             //displayListView();
             dataAdapter2.notifyDataSetChanged();
         }
