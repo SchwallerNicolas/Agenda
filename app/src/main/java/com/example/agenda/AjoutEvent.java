@@ -112,15 +112,18 @@ public class AjoutEvent extends AppCompatActivity {
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*String  = nameEntered.getText().toString();
-                String  = surnameEntered.getText().toString().toUpperCase();
+                String nomEvent= editText.getText().toString();
 
-
-                dbHelper.createEvent(monPrenom, monNom);
-                Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                if(nomEvent.isEmpty())
+                {
+                    Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
+                }else {
+                    //dbHelper.createPe(monPrenom, monNom);
+                    Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent();
                 setResult(1, intent);
-                finish();*/
+                finish();
             }
         });
     }
