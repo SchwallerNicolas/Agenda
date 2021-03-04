@@ -1,7 +1,6 @@
 package com.example.agenda;
-
+//Activity
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
@@ -11,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddUser extends HomePageActivity {
+public class AddUserActivity extends HomePageActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -30,10 +29,10 @@ public class AddUser extends HomePageActivity {
 
                 if(monPrenom.isEmpty() || monNom.isEmpty())
                 {
-                    Toast.makeText(AddUser.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddUserActivity.this, "Veuillez rentrer les informations correctement !", Toast.LENGTH_SHORT).show();
                 }else {
-                    dbHelper.createPerson(monPrenom, monNom);
-                    Toast.makeText(AddUser.this, "Utilisateur ajouté", Toast.LENGTH_SHORT).show();
+                    dbHelper.createPerson(new Person(monPrenom, monNom));
+                    Toast.makeText(AddUserActivity.this, "Utilisateur ajouté", Toast.LENGTH_SHORT).show();
 
                 }
                 Intent intent = new Intent();

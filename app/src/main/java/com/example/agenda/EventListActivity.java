@@ -1,5 +1,5 @@
 package com.example.agenda;
-
+//Activity
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,22 +8,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.FilterQueryProvider;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
-public class EventList extends AppCompatActivity {
+public class EventListActivity extends AppCompatActivity {
 
     public DBAdapter dbHelper;
     private SimpleCursorAdapter dataAdapter2;
+
+    private String belongsTo;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -35,19 +31,22 @@ public class EventList extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.maBarreOutils2);
         super.setActionBar(toolbar);
 
+        belongsTo = getIntent().getStringExtra("belongs");
+
         dbHelper = new DBAdapter(this);
         dbHelper.open();
 
         /*dbHelper.deleteAllEvents();*/
         dbHelper.insertSomeEvents();
 
-        //DisplayEventListView();
+        DisplayEventListView();
 
         ImageView versAjoutEvent = findViewById(R.id.imageView3);
         versAjoutEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(EventList.this, AjoutEvent.class);
+                Intent intent2 = new Intent(EventListActivity.this, AjoutEvent.class);
+                intent2.putExtra("belongs2", belongsTo);
                 startActivityForResult(intent2,2);
             }
         });
@@ -70,7 +69,7 @@ public class EventList extends AppCompatActivity {
                 DBAdapter.KEY_HEUREFIN,
         };
 
-        int[] tp = new int[] {
+        int[] boundTo2 = new int[] {
                 R.id.EventName,
                 R.id.EventDate,
                 R.id.EventStart,
@@ -80,7 +79,7 @@ public class EventList extends AppCompatActivity {
         dataAdapter2 = new SimpleCursorAdapter( this, R.layout.event_info,
                 cursor,
                 Eventcolumns,
-                tp,
+                boundTo2,
                 0);
 
         ListView eventListview = (ListView) findViewById(R.id.listView2);

@@ -1,5 +1,5 @@
 package com.example.agenda;
-
+//Activity
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,7 +30,7 @@ public class AjoutEvent extends AppCompatActivity {
     int t1Hour, t1Minute, t2Hour, t2Minute;
     private CalendarView calendarView;
     private SQLiteDatabase sqLiteDatabase;
-    private DBAdapter dbAdapter;
+    private DBAdapter dbHelper;
     private EditText editText;
     private Button buttonEvent;
 
@@ -115,14 +115,14 @@ public class AjoutEvent extends AppCompatActivity {
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String nomEvent= editText.getText().toString();
+                String nomEvent = editText.getText().toString();
                 //Date dateCalendar=
-
+                String nomPersonne = getIntent().getStringExtra("belongs2");
                 if(nomEvent.isEmpty()|| selectedDate.isEmpty())
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                 }else {
-                    //dbHelper.createEvent(nomEvent,);
+                    //dbHelper.createEvent(nomEvent);
                     Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();

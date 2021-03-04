@@ -10,10 +10,13 @@ import android.util.Log;
 
 
 public class DBAdapter {
+
     public static final String KEY_ROWID = "_id";
     public static final String KEY_NAME = "name";
     public static final String KEY_SURNAME = "surname";
 
+    public static final String KEY_ROWIDEVENT = "_id";
+    public static final String KEY_WHOSEEVENT = "nomQuiAjoute";
     public static final String KEY_NOMEVENT = "nomEvent";
     public static final String KEY_DATE = "Date";
     public static final String KEY_HEUREDEB = "heureDebut";
@@ -27,7 +30,10 @@ public class DBAdapter {
     private static final String DATABASE_NAME = "Agenda";
     private static final String SQLITE_TABLE_USERS = "People";
     private static final String SQLITE_TABLE_EVENTS = "Events";
-    private static final int DATABASE_VERSION = 1;
+    // version 1 : création de la table People dans la db
+    // version 2 : ajout de la table Events dans la db
+    // version 3 : modif de la table Events, ajout de la colonne WHOSEEVVENT
+    private static final int DATABASE_VERSION = 3;
 
     private final Context mCtx;
 
@@ -40,18 +46,15 @@ public class DBAdapter {
 
     private static final String CREATE_TABLE_EVENTS =
             "CREATE TABLE if not exists " + SQLITE_TABLE_EVENTS + " (" +
-                    KEY_ROWID + " integer PRIMARY KEY autoincrement," +
+                    KEY_ROWIDEVENT + " integer PRIMARY KEY autoincrement," +
+                    KEY_WHOSEEVENT + "," +
                     KEY_NOMEVENT + "," +
                     KEY_DATE + "," +
                     KEY_HEUREDEB + "," +
                     KEY_HEUREFIN + "," +
                     KEY_IDPARTICIPANT + "," +
-                    " UNIQUE (" + KEY_ROWID +"));";
+                    " UNIQUE (" + KEY_ROWIDEVENT +"));";
 
-    public void deletePerson(String NameToDelete) {
-        mDb.delete(SQLITE_TABLE_USERS,  "name=?", new String[]{NameToDelete});
-        mDb.delete(SQLITE_TABLE_EVENTS,  "name=?", new String[]{NameToDelete});
-    }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -95,22 +98,25 @@ public class DBAdapter {
     }
 
 
-    public long createPerson(String name, String surname) {
+    public long createPerson(Person person) {
 
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_NAME, name);
-        initialValues.put(KEY_SURNAME, surname);
+        initialValues.put(KEY_NAME, person.getName());
+        initialValues.put(KEY_SURNAME, person.getSurname());
 
         return mDb.insert(SQLITE_TABLE_USERS, null, initialValues);
     }
 
-    /*public boolean deleteAllPersons() {
+    public void deletePerson(String NameToDelete) {
+        mDb.delete(SQLITE_TABLE_USERS, "name=?", new String[]{NameToDelete});
+    }
 
+
+    /*public boolean deleteAllPersons() {
         int doneDelete = 0;
         doneDelete = mDb.delete(SQLITE_TABLE_USERS, null, null);
         Log.w(TAG, Integer.toString(doneDelete));
         return doneDelete > 0;
-
     }*/
 
     public Cursor fetchPersonsByName(String inputText) throws SQLException {
@@ -157,16 +163,23 @@ public class DBAdapter {
 
     }*/
 
-    public long createEvent(String nomEvent, String Date, String heureDebut, String heureFin) {
 
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_NOMEVENT , nomEvent);
-        initialValues.put(KEY_DATE , Date);
-        initialValues.put(KEY_HEUREDEB  , heureDebut);
-        initialValues.put(KEY_HEUREFIN  , heureFin);
-        //initialValues.put(KEY_IDPARTICIPANT  , idParticipant);
 
-        return mDb.insert(SQLITE_TABLE_EVENTS, null, initialValues);
+    public long createEvent(Event event) {
+
+        ContentValues eventValues = new ContentValues();
+        eventValues.put(KEY_WHOSEEVENT , event.getWhichPerson());
+        eventValues.put(KEY_NOMEVENT , event.getEventName());
+        eventValues.put(KEY_DATE , event.getEventDate());
+        eventValues.put(KEY_HEUREDEB  , event.getEventStart());
+        eventValues.put(KEY_HEUREFIN  , event.getEventEnd());
+        //eventValues.put(KEY_IDPARTICIPANT  , event.getIdParticipant());
+
+        return mDb.insert(SQLITE_TABLE_EVENTS, null, eventValues);
+    }
+
+    public void deleteEvent(String eventToDelete) {
+        mDb.delete(SQLITE_TABLE_EVENTS,  "nameEvent=?", new String[]{eventToDelete});
     }
 
     /*public boolean deleteAllEvents() {
@@ -180,8 +193,8 @@ public class DBAdapter {
 
     public Cursor fetchAllEvents() {
 
-        Cursor mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_IDPARTICIPANT,
-                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
+        Cursor mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
+                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
                 null, null, null, null, null);
 
         if (mCursor != null) {
@@ -191,7 +204,7 @@ public class DBAdapter {
     }
 
     public void insertSomeEvents() {
-        createEvent("cours","02/03/2021", "8h30", "16h30");
+        createEvent(new Event("JOJO", "cours","02/03/2021", "8h30", "16h30"));
     }
 
 }

@@ -4,17 +4,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FilterQueryProvider;
 import android.widget.ImageView;
@@ -53,7 +50,7 @@ public class HomePageActivity extends AppCompatActivity {
         versAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, AddUser.class);
+                Intent intent = new Intent(HomePageActivity.this, AddUserActivity.class);
                 //intent.putExtra("DB", (Serializable) dbHelper);
                 startActivityForResult(intent,1);
             }
@@ -72,7 +69,7 @@ public class HomePageActivity extends AppCompatActivity {
         };
 
         // Éléments définis dans le Layout XML person_info
-        int[] to = new int[] {
+        int[] boundTo = new int[] {
                 R.id.name,
                 R.id.surname,
         };
@@ -83,7 +80,7 @@ public class HomePageActivity extends AppCompatActivity {
                 this, R.layout.person_info,
                 cursor,
                 columns,
-                to,
+                boundTo,
                 0);
 
         ListView listView = (ListView) findViewById(R.id.listView1);
@@ -97,11 +94,10 @@ public class HomePageActivity extends AppCompatActivity {
                 //Avoir le cursor lié à la ligne qui lui correspond
                 Cursor cursor = (Cursor)
                         listView.getItemAtPosition(position);
-
-                /*String personName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-                Toast.makeText(getApplicationContext(), personName, Toast.LENGTH_SHORT).show();*/
-                Toast.makeText(HomePageActivity.this, "click", Toast.LENGTH_SHORT).show();
-                Intent intentEvent = new Intent(HomePageActivity.this, EventList.class);
+                String belongsTo = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                Toast.makeText(HomePageActivity.this, "Longer click to delete", Toast.LENGTH_SHORT).show();
+                Intent intentEvent = new Intent(HomePageActivity.this, EventListActivity.class);
+                intentEvent.putExtra("belongs", belongsTo);
                 startActivity(intentEvent);
             }
         });
