@@ -61,6 +61,7 @@ public class EventListActivity extends AppCompatActivity {
     private void DisplayEventListView() {
 
         Cursor cursor = dbHelper.fetchAllEvents();
+        //Cursor cursor = dbHelper.fetchYourEvents();
 
         String[] Eventcolumns = new String[] {
                 DBAdapter.KEY_NOMEVENT,
