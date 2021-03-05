@@ -21,7 +21,7 @@ public class DBAdapter {
     public static final String KEY_DATE = "Date";
     public static final String KEY_HEUREDEB = "heureDebut";
     public static final String KEY_HEUREFIN = "heureFin";
-    public static final String KEY_IDPARTICIPANT = "idParticipant";
+    //public static final String KEY_IDPARTICIPANT = "idParticipant";
 
     private static final String TAG = "DbAdapter";
     private DatabaseHelper mDbHelper;
@@ -33,7 +33,8 @@ public class DBAdapter {
     // version 1 : création de la table People dans la db
     // version 2 : ajout de la table Events dans la db
     // version 3 : modif de la table Events, ajout de la colonne WHOSEEVVENT
-    private static final int DATABASE_VERSION = 3;
+    // version 4 : modif table Event, suppression col idParticipant
+    private static final int DATABASE_VERSION = 4;
 
     private final Context mCtx;
 
@@ -52,7 +53,7 @@ public class DBAdapter {
                     KEY_DATE + "," +
                     KEY_HEUREDEB + "," +
                     KEY_HEUREFIN + "," +
-                    KEY_IDPARTICIPANT + "," +
+                    //KEY_IDPARTICIPANT + "," +
                     " UNIQUE (" + KEY_ROWIDEVENT +"));";
 
 
@@ -194,7 +195,7 @@ public class DBAdapter {
     public Cursor fetchAllEvents() {
 
         Cursor mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
-                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
                 null, null, null, null, null);
 
         if (mCursor != null) {
