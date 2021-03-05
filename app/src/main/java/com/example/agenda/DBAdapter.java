@@ -52,7 +52,7 @@ public class DBAdapter {
                     KEY_DATE + "," +
                     KEY_HEUREDEB + "," +
                     KEY_HEUREFIN + "," +
-                    KEY_IDPARTICIPANT + "," +
+                    //KEY_IDPARTICIPANT + "," +
                     " UNIQUE (" + KEY_ROWIDEVENT +"));";
 
 
