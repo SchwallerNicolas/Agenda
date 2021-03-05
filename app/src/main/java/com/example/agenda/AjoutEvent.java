@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -34,7 +35,11 @@ public class AjoutEvent extends AppCompatActivity {
     private EditText editText;
     private Button buttonEvent;
 
-    String selectedDate;
+    String selectedDate;//calendar
+    String nameEvent;
+    String heureD;
+    String heureF;
+
 
 
     @Override
@@ -67,8 +72,8 @@ public class AjoutEvent extends AppCompatActivity {
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                             t1Hour = hourOfDay;
                             t1Minute = minute;
-
                             String time = t1Hour + ":" + t1Minute;
+                            heureD=time;
                             SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
                             try {
                                 Date date = f24Hours.parse(time);
@@ -95,8 +100,8 @@ public class AjoutEvent extends AppCompatActivity {
                                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                     t2Hour = hourOfDay;
                                     t2Minute = minute;
-
                                     String time = t2Hour + ":" + t2Minute;
+                                    heureF=time;
                                     SimpleDateFormat f24Hours = new SimpleDateFormat("HH:mm");
                                     try {
                                         Date date = f24Hours.parse(time);
@@ -116,6 +121,7 @@ public class AjoutEvent extends AppCompatActivity {
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String nomEvent = editText.getText().toString();
+                ArrayList listparticipant;
                 //Date dateCalendar=
                 String nomPersonne = getIntent().getStringExtra("belongs2");
                 if(nomEvent.isEmpty()|| selectedDate.isEmpty())
