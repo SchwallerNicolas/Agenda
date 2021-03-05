@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -60,8 +62,22 @@ public class AjoutEvent extends AppCompatActivity {
             }
         });
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nameEvent=editText.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         tvTimer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,15 +136,15 @@ public class AjoutEvent extends AppCompatActivity {
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String nomEvent = editText.getText().toString();
+                Event event=new Event(nameEvent,selectedDate,heureD,heureF);
                 ArrayList listparticipant;
                 //Date dateCalendar=
                 String idPersonne = getIntent().getStringExtra("belongs2");
-                if(nomEvent.isEmpty()|| selectedDate.isEmpty())
+                if(nameEvent.isEmpty()|| selectedDate.isEmpty())
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                 }else {
-                    //dbHelper.createEvent(nomEvent);
+                    dbHelper.createEvent(event);
                     Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();
