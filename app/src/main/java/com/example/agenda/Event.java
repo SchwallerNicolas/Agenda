@@ -9,9 +9,9 @@ public class Event {
     String EventEnd = null;
     int idParticipant = 0;
 
-    public Event(String user, String eventName, String eventDate, String eventStart, String eventEnd) {
+    public Event(String eventName, String eventDate, String eventStart, String eventEnd) {
         super();
-        this.whichPerson = user;
+        //this.whichPerson = user;
         this.EventName = eventName;
         this.EventDate = eventDate;
         this.EventStart = eventStart;
@@ -26,12 +26,12 @@ public class Event {
         this.idEvent = id;
     }
 
-    public String getWhichPerson() {
+    /*public String getWhichPerson() {
         return whichPerson;
     }
     public void setWhichPerson(String name) {
         this.EventName = name;
-    }
+    }*/
 
     public String getEventName() {
         return EventName;

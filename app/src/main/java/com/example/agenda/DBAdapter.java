@@ -16,7 +16,7 @@ public class DBAdapter {
     public static final String KEY_SURNAME = "surname";
 
     public static final String KEY_ROWIDEVENT = "_id";
-    public static final String KEY_WHOSEEVENT = "nomQuiAjoute";
+    //public static final String KEY_WHOSEEVENT = "idQuiAjoute";
     public static final String KEY_NOMEVENT = "nomEvent";
     public static final String KEY_DATE = "Date";
     public static final String KEY_HEUREDEB = "heureDebut";
@@ -47,7 +47,7 @@ public class DBAdapter {
     private static final String CREATE_TABLE_EVENTS =
             "CREATE TABLE if not exists " + SQLITE_TABLE_EVENTS + " (" +
                     KEY_ROWIDEVENT + " integer PRIMARY KEY autoincrement," +
-                    KEY_WHOSEEVENT + "," +
+                    //KEY_WHOSEEVENT + "integer," +
                     KEY_NOMEVENT + "," +
                     KEY_DATE + "," +
                     KEY_HEUREDEB + "," +
@@ -163,12 +163,12 @@ public class DBAdapter {
 
     }*/
 
-
+    //
 
     public long createEvent(Event event) {
 
         ContentValues eventValues = new ContentValues();
-        eventValues.put(KEY_WHOSEEVENT , event.getWhichPerson());
+        //eventValues.put(KEY_WHOSEEVENT , event.getWhichPerson());
         eventValues.put(KEY_NOMEVENT , event.getEventName());
         eventValues.put(KEY_DATE , event.getEventDate());
         eventValues.put(KEY_HEUREDEB  , event.getEventStart());
@@ -203,8 +203,30 @@ public class DBAdapter {
         return mCursor;
     }
 
+    /*public Cursor fetchYourEvents(String whoseEvent) throws SQLException {
+        Log.w(TAG, whoseEvent);
+        Cursor mCursor = null;
+        if (whoseEvent == null  ||  whoseEvent.length () == 0)  {
+            mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
+                            KEY_NAME, KEY_SURNAME},
+                    null, null, null, null, null);
+
+        }
+        else {
+            mCursor = mDb.query(true, SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
+                            KEY_NAME, KEY_SURNAME},
+                    KEY_NAME + " like '%" + inputText + "%'", null,
+                    null, null, null, null);
+        }
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+
+    }*/
+
     public void insertSomeEvents() {
-        createEvent(new Event("JOJO", "cours","02/03/2021", "8h30", "16h30"));
+        createEvent(new Event("cours","02/03/2021", "8h30", "16h30"));
     }
 
 }
