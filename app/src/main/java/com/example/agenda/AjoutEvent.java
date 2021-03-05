@@ -123,7 +123,7 @@ public class AjoutEvent extends AppCompatActivity {
                 String nomEvent = editText.getText().toString();
                 ArrayList listparticipant;
                 //Date dateCalendar=
-                String nomPersonne = getIntent().getStringExtra("belongs2");
+                String idPersonne = getIntent().getStringExtra("belongs2");
                 if(nomEvent.isEmpty()|| selectedDate.isEmpty())
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();

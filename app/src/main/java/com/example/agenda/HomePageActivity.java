@@ -94,7 +94,7 @@ public class HomePageActivity extends AppCompatActivity {
                 //Avoir le cursor lié à la ligne qui lui correspond
                 Cursor cursor = (Cursor)
                         listView.getItemAtPosition(position);
-                String belongsTo = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String belongsTo = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
                 Toast.makeText(HomePageActivity.this, "Longer click to delete", Toast.LENGTH_SHORT).show();
                 Intent intentEvent = new Intent(HomePageActivity.this, EventListActivity.class);
                 intentEvent.putExtra("belongs", belongsTo);
