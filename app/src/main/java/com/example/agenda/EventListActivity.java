@@ -37,7 +37,7 @@ public class EventListActivity extends AppCompatActivity {
         dbHelper.open();
 
         /*dbHelper.deleteAllEvents();*/
-        dbHelper.insertSomeEvents();
+        //dbHelper.insertSomeEvents();
 
         DisplayEventListView();
 
