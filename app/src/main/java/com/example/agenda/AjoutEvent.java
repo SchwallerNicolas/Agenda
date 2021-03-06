@@ -141,8 +141,8 @@ public class AjoutEvent extends AppCompatActivity {
 
                 String monEvent = nameEvent;
                 String maDateEvent = selectedDate;
-                String monEventDebut = heureD;
-                String monEventFin = heureF;
+                String maDebut = heureD;
+                String maFin = heureF;
 
                 //ArrayList listparticipant;
                 //Date dateCalendar=
@@ -154,7 +154,7 @@ public class AjoutEvent extends AppCompatActivity {
                     dateFormat = new SimpleDateFormat("dd/MM");
                     maDateEvent = dateFormat.format(calendar.getTime());
                 } else {
-                    dbHelper.createEvent(new Event(monEvent, maDateEvent, monEventDebut, monEventFin));
+                    dbHelper.createEvent(new Event(monEvent, maDateEvent, maDebut, maFin));
                     Toast.makeText(AjoutEvent.this, "Événement ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();
