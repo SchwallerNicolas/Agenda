@@ -33,17 +33,14 @@ public class AjoutEvent extends AppCompatActivity {
     int t1Hour, t1Minute, t2Hour, t2Minute;
     private CalendarView calendarView;
     private SQLiteDatabase sqLiteDatabase;
-    private DBAdapter dbHelper;
+    public DBAdapter dbHelper;
     private EditText editText;
     private Button buttonEvent;
 
-    String selectedDate;//calendar
+    String selectedDate;
     String nameEvent;
     String heureD;
     String heureF;
-
-    private Calendar calendar;
-    private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,7 @@ public class AjoutEvent extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate=Integer.toString(year)+Integer.toString(month)+Integer.toString(dayOfMonth);
+                selectedDate=year+"/"+(month+1)+"/"+dayOfMonth;
             }
         });
 
@@ -136,29 +133,20 @@ public class AjoutEvent extends AppCompatActivity {
         });
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
+                Event event=new Event(nameEvent,selectedDate,heureD,heureF);
+                ArrayList listparticipant;
 
-                String monEvent = nameEvent;
-                String maDateEvent = selectedDate;
-                String maDebut = heureD;
-                String maFin = heureF;
-
-                //ArrayList listparticipant;
-                //Date dateCalendar=
-                //String idPersonne = getIntent().getStringExtra("belongs2");
-                //Toast.makeText(AjoutEvent.this, ""+nameEvent, Toast.LENGTH_SHORT).show();
-                if(monEvent.isEmpty() || maDateEvent == null) {
+                Toast.makeText(AjoutEvent.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
+                if(nameEvent.isEmpty())
+                {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
-                    calendar = Calendar.getInstance();
-                    dateFormat = new SimpleDateFormat("dd/MM");
-                    maDateEvent = dateFormat.format(calendar.getTime());
-                } else {
-                    dbHelper.createEvent(new Event(monEvent, maDateEvent, maDebut, maFin));
-                    Toast.makeText(AjoutEvent.this, "Événement ajouté", Toast.LENGTH_SHORT).show();
+                }else {
+                    dbHelper.createEvent(event);
+                    Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();
-                setResult(0, intent);
+                setResult(2, intent);
                 finish();
             }
         });
