@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -35,7 +37,9 @@ public class AjoutEvent extends AppCompatActivity {
     private SQLiteDatabase sqLiteDatabase;
     private EditText editText;
     private Button buttonEvent;
+    private Spinner spinnerParticipant;
 
+    ArrayList<String> listParticipant;
     String selectedDate;
     String nameEvent;
     String heureD;
@@ -54,6 +58,11 @@ public class AjoutEvent extends AppCompatActivity {
         calendarView=findViewById(R.id.calendarView);
         editText= findViewById(R.id.idTextNameEvent);
         buttonEvent=findViewById(R.id.buttonEvent);
+        spinnerParticipant=findViewById(R.id.spinner);
+
+        listParticipant=HomePageActivity.dbHelper.getAllPersonne();
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, listParticipant);
+        spinnerParticipant.setAdapter(adapter);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
