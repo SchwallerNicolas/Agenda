@@ -41,7 +41,7 @@ public class AjoutEvent extends AppCompatActivity {
     private Button buttonParticipant;
 
     ArrayList<String> listParticipant;
-    ArrayList<String> listParticipantSelec;
+    ArrayList<String> listParticipantSelec=new ArrayList<String>();
     String selectedDate;
     String nameEvent;
     String heureD;
@@ -168,14 +168,13 @@ public class AjoutEvent extends AppCompatActivity {
         buttonParticipant.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(listParticipantSelec.contains(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')))){
+                if(listParticipantSelec.contains(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')))==true){
                     Toast.makeText(AjoutEvent.this, "Participant déjà ajouté", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     listParticipantSelec.add(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')));
                     Toast.makeText(AjoutEvent.this, "Participant ajouté", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
