@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 
 public class DBAdapter {
 
@@ -156,15 +158,21 @@ public class DBAdapter {
         return mCursor;
     }
 
-    /*public void insertSomePersons() {
+    public ArrayList<String> getAllPersonne() {
+        ArrayList<String> list=new ArrayList<String>();
+        Cursor mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
+                        KEY_NAME, KEY_SURNAME},
+                null, null, null, null, null);
 
-        createPerson("Nicolas", "SCHWALLER");
-        createPerson("Jochen", "LEMMENS");
-        createPerson("Evan", "FROUIN");
-        createPerson("Lm", "MOUSSY");
-        createPerson("Richard", "CRESSOL");
-
-    }*/
+        if (mCursor.getCount()>0) {
+            while (mCursor.moveToNext()){
+                String nameParticipant=mCursor.getString(mCursor.getColumnIndex("name"));
+                String surnameParticipant=mCursor.getString(mCursor.getColumnIndex("surname"));
+                list.add(nameParticipant+" "+surnameParticipant);
+            }
+        }
+        return list;
+    }
 
     //
 
