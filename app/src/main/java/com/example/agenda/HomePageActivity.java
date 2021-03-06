@@ -22,7 +22,7 @@ import android.widget.Toolbar;
 
 public class HomePageActivity extends AppCompatActivity {
 
-    public DBAdapter dbHelper;
+    public static DBAdapter dbHelper;
     private SimpleCursorAdapter dataAdapter;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
