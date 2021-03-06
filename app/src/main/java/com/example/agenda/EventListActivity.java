@@ -78,6 +78,16 @@ public class EventListActivity extends AppCompatActivity {
         ListView eventListview = (ListView) findViewById(R.id.listView2);
         eventListview.setAdapter(dataAdapter2);
 
+        eventListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> listView, View view,
+                                    int position, long id) {
+                //Avoir le cursor lié à la ligne qui lui correspond
+                Cursor cursor = (Cursor) listView.getItemAtPosition(position);
+                Toast.makeText(EventListActivity.this, "Longer click to delete", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         eventListview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
