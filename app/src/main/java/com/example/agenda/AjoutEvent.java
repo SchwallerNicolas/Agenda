@@ -53,15 +53,15 @@ public class AjoutEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajout_event);
 
-        tvTimer1=findViewById(R.id.tv_timer1);
-        tvTimer2=findViewById(R.id.tv_timer2);
-        calendarView=findViewById(R.id.calendarView);
-        editText= findViewById(R.id.idTextNameEvent);
-        buttonEvent=findViewById(R.id.buttonEvent);
-        spinnerParticipant=findViewById(R.id.spinner);
+        tvTimer1 = findViewById(R.id.tv_timer1);
+        tvTimer2 = findViewById(R.id.tv_timer2);
+        calendarView = findViewById(R.id.calendarView);
+        editText = findViewById(R.id.idTextNameEvent);
+        buttonEvent = findViewById(R.id.buttonEvent);
+        spinnerParticipant = findViewById(R.id.spinner);
 
-        listParticipant=HomePageActivity.dbHelper.getAllPersonne();
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, listParticipant);
+        listParticipant = HomePageActivity.dbHelper.getAllPersonne();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, listParticipant);
         spinnerParticipant.setAdapter(adapter);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){

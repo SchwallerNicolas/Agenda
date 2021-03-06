@@ -20,7 +20,6 @@ public class DBAdapter {
     public static final String KEY_SURNAME = "surname";
 
     public static final String KEY_ROWIDEVENT = "_id";
-    //public static final String KEY_WHOSEEVENT = "idQuiAjoute";
     public static final String KEY_NOMEVENT = "nomEvent";
     public static final String KEY_DATE = "Date";
     public static final String KEY_HEUREDEB = "heureDebut";
@@ -36,7 +35,6 @@ public class DBAdapter {
     private static final String SQLITE_TABLE_EVENTS = "Events";
     // version 1 : création de la table People dans la db
     // version 2 : ajout de la table Events dans la db
-    // version 3 : modif de la table Events, ajout de la colonne WHOSEEVVENT
     // version 4 : modif table Event, suppression col idParticipant
     private static final int DATABASE_VERSION = 4;
 
