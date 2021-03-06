@@ -178,7 +178,6 @@ public class DBAdapter {
     public long createEvent(Event event) {
 
         ContentValues eventValues = new ContentValues();
-        //eventValues.put(KEY_WHOSEEVENT , event.getWhichPerson());
         eventValues.put(KEY_NOMEVENT , event.getEventName());
         eventValues.put(KEY_DATE , event.getEventDate());
         eventValues.put(KEY_HEUREDEB  , event.getEventStart());
@@ -203,19 +202,20 @@ public class DBAdapter {
         return mCursor;
     }
 
-    /*public Cursor fetchYourEvents(String whoseEvent) throws SQLException {
+    public Cursor fetchYourEvents(String whoseEvent) throws SQLException {
         Log.w(TAG, whoseEvent);
         Cursor mCursor = null;
         if (whoseEvent == null  ||  whoseEvent.length () == 0)  {
-            mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWIDEVENT,
-                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
+            mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
+                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
                     null, null, null, null, null);
 
-        }
-        else {
-            mCursor = mDb.query(true, SQLITE_TABLE_USERS, new String[] {KEY_ROWIDEVENT,
-                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
-                    KEY_IDPARTICIPANT + " = " + whoseEvent, null,
+        } else {
+            String where = KEY_IDPARTICIPANT + "=?";
+            String[] whereArgs = {whoseEvent};
+            mCursor = mDb.query(true, SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
+                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                    where, whereArgs,
                     null, null, null, null);
         }
         if (mCursor != null) {
@@ -223,7 +223,7 @@ public class DBAdapter {
         }
         return mCursor;
 
-    }*/
+    }
 
 }
 

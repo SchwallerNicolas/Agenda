@@ -52,28 +52,28 @@ public class EventListActivity extends AppCompatActivity {
 
     private void DisplayEventListView() {
 
-        Cursor cursor = HomePageActivity.dbHelper.fetchAllEvents();
-        //Cursor cursor = HomePageActivity.dbHelper.fetchYourEvents();
+        //Cursor cursor = HomePageActivity.dbHelper.fetchAllEvents();
+        Cursor cursor = HomePageActivity.dbHelper.fetchYourEvents(belongsTo);
 
-        String[] Eventcolumns = new String[] {
-                DBAdapter.KEY_NOMEVENT,
-                DBAdapter.KEY_DATE,
-                DBAdapter.KEY_HEUREDEB,
-                DBAdapter.KEY_HEUREFIN,
-        };
+            String[] Eventcolumns = new String[]{
+                    DBAdapter.KEY_NOMEVENT,
+                    DBAdapter.KEY_DATE,
+                    DBAdapter.KEY_HEUREDEB,
+                    DBAdapter.KEY_HEUREFIN,
+            };
 
-        int[] boundTo2 = new int[] {
-                R.id.EventName,
-                R.id.EventDate,
-                R.id.EventStart,
-                R.id.EventEnd,
-        };
+            int[] boundTo2 = new int[]{
+                    R.id.EventName,
+                    R.id.EventDate,
+                    R.id.EventStart,
+                    R.id.EventEnd,
+            };
 
-        dataAdapter2 = new SimpleCursorAdapter( this, R.layout.event_info,
-                cursor,
-                Eventcolumns,
-                boundTo2,
-                0);
+            dataAdapter2 = new SimpleCursorAdapter(this, R.layout.event_info,
+                    cursor,
+                    Eventcolumns,
+                    boundTo2,
+                    0);
 
         ListView eventListview = (ListView) findViewById(R.id.listView2);
         eventListview.setAdapter(dataAdapter2);
@@ -108,9 +108,8 @@ public class EventListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 2){
-            dataAdapter2.notifyDataSetChanged();
             DisplayEventListView();
-
+            dataAdapter2.notifyDataSetChanged();
         }
     }
 }
