@@ -7,16 +7,16 @@ public class Event {
     String EventDate = null;
     String EventStart = null;
     String EventEnd = null;
-    int idParticipant = 0;
+    String idParticipant = null;
 
-    public Event(String eventName, String eventDate, String eventStart, String eventEnd) {
+    public Event(String eventName, String eventDate, String eventStart, String eventEnd, String idParticipant) {
         super();
         //this.whichPerson = user;
         this.EventName = eventName;
         this.EventDate = eventDate;
         this.EventStart = eventStart;
         this.EventEnd = eventEnd;
-        //this.idParticipant = idParticipant;
+        this.idParticipant = idParticipant;
     }
 
     public int getIdEvent() {
@@ -61,8 +61,8 @@ public class Event {
         this.EventEnd = endTime;
     }
 
-    //public int getIdParticipant() { return idParticipant; }
-    //public void setIdParticipant(int id) { this.idParticipant = id; }
+    public String getIdParticipant() { return idParticipant; }
+    public void setIdParticipant(String id) { this.idParticipant = id; }
 
 }
 
