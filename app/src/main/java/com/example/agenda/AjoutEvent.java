@@ -42,6 +42,9 @@ public class AjoutEvent extends AppCompatActivity {
     String heureD;
     String heureF;
 
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,14 +137,18 @@ public class AjoutEvent extends AppCompatActivity {
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Event event=new Event(nameEvent,selectedDate,heureD,heureF);
+
                 ArrayList listparticipant;
 
                 Toast.makeText(AjoutEvent.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
-                if(nameEvent.isEmpty())
+                if(nameEvent.isEmpty() || selectedDate == null)
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
+                    calendar = Calendar.getInstance();
+                    dateFormat = new SimpleDateFormat("dd/MM");
+                    selectedDate = dateFormat.format(calendar.getTime());
                 }else {
+                    Event event = new Event(nameEvent,selectedDate,heureD,heureF);
                     dbHelper.createEvent(event);
                     Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
