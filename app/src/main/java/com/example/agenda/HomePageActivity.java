@@ -106,7 +106,7 @@ public class HomePageActivity extends AppCompatActivity {
                 // Get the person's name from the row in the database
                 String NameToDelete = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 dbHelper.deletePerson(NameToDelete);
-                Toast.makeText(HomePageActivity.this, "Delete "+parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomePageActivity.this, "Deleted "+parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
                 displayUserListView();
                 dataAdapter.notifyDataSetChanged();
                 return false;

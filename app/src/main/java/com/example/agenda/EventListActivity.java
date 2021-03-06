@@ -9,9 +9,11 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 
@@ -32,12 +34,8 @@ public class EventListActivity extends AppCompatActivity {
         super.setActionBar(toolbar);
 
         belongsTo = getIntent().getStringExtra("belongs");
-
-       // dbHelper = new DBAdapter(this);
         HomePageActivity.dbHelper.open();
 
-        /*dbHelper.deleteAllEvents();*/
-        //dbHelper.insertSomeEvents();
 
         DisplayEventListView();
 
@@ -80,20 +78,19 @@ public class EventListActivity extends AppCompatActivity {
         ListView eventListview = (ListView) findViewById(R.id.listView2);
         eventListview.setAdapter(dataAdapter2);
 
-        /* Afficher le noms des participants ? JSP si possible
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-           @Override
-           public void onItemClick(AdapterView<?> listView, View view,
-                                   int position, long id) {
-               //get the cursor, positioned to corresponding row in the result set
-               Cursor cursor = (Cursor)
-                       listView.getItemAtPosition(position);
-               // Get the person's name from the row in the database
-               String personName = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-               Toast.makeText(getApplicationContext(),
-                       personName, Toast.LENGTH_SHORT).show();
-           }
-       });*/
+        eventListview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //get the cursor, positioned to corresponding row in the result set
+                Cursor cursor = (Cursor) eventListview.getItemAtPosition(position);
+                String EventoDelete = cursor.getString(cursor.getColumnIndexOrThrow("nomEvent"));
+                HomePageActivity.dbHelper.deleteEvent(EventoDelete);
+                Toast.makeText(EventListActivity.this, "Deleted "+parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                DisplayEventListView();
+                dataAdapter2.notifyDataSetChanged();
+                return false;
+            }
+        });
 
     }
 

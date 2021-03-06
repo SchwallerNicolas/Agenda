@@ -174,18 +174,20 @@ public class DBAdapter {
         return mCursor;
     }
 
+
+
     /*public Cursor fetchYourEvents(String whoseEvent) throws SQLException {
         Log.w(TAG, whoseEvent);
         Cursor mCursor = null;
         if (whoseEvent == null  ||  whoseEvent.length () == 0)  {
             mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWIDEVENT,
-                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
+                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
                     null, null, null, null, null);
 
         }
         else {
             mCursor = mDb.query(true, SQLITE_TABLE_USERS, new String[] {KEY_ROWIDEVENT,
-                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
+                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
                     KEY_IDPARTICIPANT + " = " + whoseEvent, null,
                     null, null, null, null);
         }
