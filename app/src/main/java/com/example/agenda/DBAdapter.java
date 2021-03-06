@@ -175,22 +175,12 @@ public class DBAdapter {
         eventValues.put(KEY_HEUREDEB  , event.getEventStart());
         eventValues.put(KEY_HEUREFIN  , event.getEventEnd());
         //eventValues.put(KEY_IDPARTICIPANT  , event.getIdParticipant());
-
         return mDb.insert(SQLITE_TABLE_EVENTS, null, eventValues);
     }
 
     public void deleteEvent(String eventToDelete) {
         mDb.delete(SQLITE_TABLE_EVENTS,  "nameEvent=?", new String[]{eventToDelete});
     }
-
-    /*public boolean deleteAllEvents() {
-
-        int doneDelete = 0;
-        doneDelete = mDb.delete(SQLITE_TABLE_EVENTS, null , null);
-        Log.w(TAG, Integer.toString(doneDelete));
-        return doneDelete > 0;
-
-    }*/
 
     public Cursor fetchAllEvents() {
 

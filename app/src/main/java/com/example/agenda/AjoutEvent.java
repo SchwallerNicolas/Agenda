@@ -42,7 +42,8 @@ public class AjoutEvent extends AppCompatActivity {
     String heureD;
     String heureF;
 
-
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,21 +136,29 @@ public class AjoutEvent extends AppCompatActivity {
         });
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View v) {
-                Event event=new Event(nameEvent,selectedDate,heureD,heureF);
-                ArrayList listparticipant;
+
+                String monEvent = nameEvent;
+                String maDateEvent = selectedDate;
+                String monEventDebut = heureD;
+                String monEventFin = heureF;
+
+                //ArrayList listparticipant;
                 //Date dateCalendar=
-                String idPersonne = getIntent().getStringExtra("belongs2");
+                //String idPersonne = getIntent().getStringExtra("belongs2");
                 //Toast.makeText(AjoutEvent.this, ""+nameEvent, Toast.LENGTH_SHORT).show();
-                if(nameEvent.isEmpty()|| selectedDate.isEmpty())
-                {
+                if(monEvent.isEmpty() || maDateEvent == null) {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
-                }else {
-                    dbHelper.createEvent(event);
-                    Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                    calendar = Calendar.getInstance();
+                    dateFormat = new SimpleDateFormat("dd/MM");
+                    maDateEvent = dateFormat.format(calendar.getTime());
+                } else {
+                    dbHelper.createEvent(new Event(monEvent, maDateEvent, monEventDebut, monEventFin));
+                    Toast.makeText(AjoutEvent.this, "Événement ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();
-                setResult(2, intent);
+                setResult(0, intent);
                 finish();
             }
         });

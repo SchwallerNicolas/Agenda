@@ -27,14 +27,14 @@ public class AddUserActivity extends HomePageActivity {
                 String monPrenom = nameEntered.getText().toString();
                 String monNom = surnameEntered.getText().toString().toUpperCase();
 
-                if(monPrenom.isEmpty() || monNom.isEmpty())
-                {
+                if(monPrenom.isEmpty() || monNom.isEmpty())                 {
                     Toast.makeText(AddUserActivity.this, "Veuillez rentrer les informations correctement !", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     dbHelper.createPerson(new Person(monPrenom, monNom));
                     Toast.makeText(AddUserActivity.this, "Utilisateur ajouté", Toast.LENGTH_SHORT).show();
 
                 }
+
                 Intent intent = new Intent();
                 setResult(1, intent);
                 finish();

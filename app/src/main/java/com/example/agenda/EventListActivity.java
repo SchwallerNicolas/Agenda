@@ -47,7 +47,7 @@ public class EventListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent2 = new Intent(EventListActivity.this, AjoutEvent.class);
                 intent2.putExtra("belongs2", belongsTo);
-                startActivityForResult(intent2,2);
+                startActivityForResult(intent2,0);
             }
         });
     }
@@ -106,8 +106,8 @@ public class EventListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 2){
-            //displayListView();
+        if(requestCode == 0){
+            DisplayEventListView();
             dataAdapter2.notifyDataSetChanged();
         }
     }
