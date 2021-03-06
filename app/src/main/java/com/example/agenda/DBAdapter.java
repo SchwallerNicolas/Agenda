@@ -38,7 +38,7 @@ public class DBAdapter {
     // version 2 : ajout de la table Events dans la db
     // version 3 : modif de la table Events, ajout de la colonne WHOSEEVVENT
     // version 4 : modif table Event, suppression col idParticipant
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     private final Context mCtx;
 
