@@ -18,7 +18,6 @@ public class DBAdapter {
     public static final String KEY_SURNAME = "surname";
 
     public static final String KEY_ROWIDEVENT = "_id";
-    //public static final String KEY_WHOSEEVENT = "idQuiAjoute";
     public static final String KEY_NOMEVENT = "nomEvent";
     public static final String KEY_DATE = "Date";
     public static final String KEY_HEUREDEB = "heureDebut";
@@ -50,7 +49,6 @@ public class DBAdapter {
     private static final String CREATE_TABLE_EVENTS =
             "CREATE TABLE if not exists " + SQLITE_TABLE_EVENTS + " (" +
                     KEY_ROWIDEVENT + " integer PRIMARY KEY autoincrement," +
-                    //KEY_WHOSEEVENT + "integer," +
                     KEY_NOMEVENT + "," +
                     KEY_DATE + "," +
                     KEY_HEUREDEB + "," +
@@ -114,14 +112,6 @@ public class DBAdapter {
         mDb.delete(SQLITE_TABLE_USERS, "name=?", new String[]{NameToDelete});
     }
 
-
-    /*public boolean deleteAllPersons() {
-        int doneDelete = 0;
-        doneDelete = mDb.delete(SQLITE_TABLE_USERS, null, null);
-        Log.w(TAG, Integer.toString(doneDelete));
-        return doneDelete > 0;
-    }*/
-
     public Cursor fetchPersonsByName(String inputText) throws SQLException {
         Log.w(TAG, inputText);
         Cursor mCursor = null;
@@ -156,22 +146,10 @@ public class DBAdapter {
         return mCursor;
     }
 
-    /*public void insertSomePersons() {
-
-        createPerson("Nicolas", "SCHWALLER");
-        createPerson("Jochen", "LEMMENS");
-        createPerson("Evan", "FROUIN");
-        createPerson("Lm", "MOUSSY");
-        createPerson("Richard", "CRESSOL");
-
-    }*/
-
-    //
 
     public long createEvent(Event event) {
 
         ContentValues eventValues = new ContentValues();
-        //eventValues.put(KEY_WHOSEEVENT , event.getWhichPerson());
         eventValues.put(KEY_NOMEVENT , event.getEventName());
         eventValues.put(KEY_DATE , event.getEventDate());
         eventValues.put(KEY_HEUREDEB  , event.getEventStart());
@@ -217,10 +195,6 @@ public class DBAdapter {
         return mCursor;
 
     }*/
-
-    public void insertSomeEvents() {
-        createEvent(new Event("cours","02/03/2021", "8h30", "16h30"));
-    }
 
 }
 

@@ -38,11 +38,6 @@ public class HomePageActivity extends AppCompatActivity {
         dbHelper = new DBAdapter(this);
         dbHelper.open();
 
-        /*//"Nettoyer" la bdd
-        dbHelper.deleteAllPersons();
-        //Ajouter des données à la bdd
-        dbHelper.insertSomePersons();*/
-
         // Générer une ListView à partir des éléments de la BDD
         displayUserListView();
 
