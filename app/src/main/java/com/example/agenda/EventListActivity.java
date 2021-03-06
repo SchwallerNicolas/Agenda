@@ -17,7 +17,6 @@ import android.widget.Toolbar;
 
 public class EventListActivity extends AppCompatActivity {
 
-    //public DBAdapter dbHelper;
     private SimpleCursorAdapter dataAdapter2;
 
     private String belongsTo;
@@ -56,7 +55,7 @@ public class EventListActivity extends AppCompatActivity {
     private void DisplayEventListView() {
 
         Cursor cursor = HomePageActivity.dbHelper.fetchAllEvents();
-        //Cursor cursor = dbHelper.fetchYourEvents();
+        //Cursor cursor = HomePageActivity.dbHelper.fetchYourEvents();
 
         String[] Eventcolumns = new String[] {
                 DBAdapter.KEY_NOMEVENT,
