@@ -38,8 +38,10 @@ public class AjoutEvent extends AppCompatActivity {
     private EditText editText;
     private Button buttonEvent;
     private Spinner spinnerParticipant;
+    private Button buttonParticipant;
 
     ArrayList<String> listParticipant;
+    ArrayList<String> listParticipantSelec;
     String selectedDate;
     String nameEvent;
     String heureD;
@@ -59,6 +61,7 @@ public class AjoutEvent extends AppCompatActivity {
         editText= findViewById(R.id.idTextNameEvent);
         buttonEvent=findViewById(R.id.buttonEvent);
         spinnerParticipant=findViewById(R.id.spinner);
+        buttonParticipant=findViewById(R.id.buttonParticipant);
 
         listParticipant=HomePageActivity.dbHelper.getAllPersonne();
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, listParticipant);
@@ -145,24 +148,34 @@ public class AjoutEvent extends AppCompatActivity {
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                ArrayList listparticipant;
-
                 //Toast.makeText(AjoutEvent.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
-                if(nameEvent.isEmpty() || selectedDate == null)
+                if(nameEvent.isEmpty() || selectedDate == null||heureF==null||heureD==null||listParticipantSelec.isEmpty())
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
-                    calendar = Calendar.getInstance();
-                    dateFormat = new SimpleDateFormat("dd/MM");
-                    selectedDate = dateFormat.format(calendar.getTime());
                 }else {
-                    HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF));
+                    for(int i=0;i<listParticipantSelec.size();i++){
+                        HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
+                    }
                     Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 setResult(2, intent);
                 finish();
+            }
+        });
+
+        buttonParticipant.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(listParticipantSelec.contains(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')))){
+                    Toast.makeText(AjoutEvent.this, "Participant déjà ajouté", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    listParticipantSelec.add(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')));
+                    Toast.makeText(AjoutEvent.this, "Participant ajouté", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

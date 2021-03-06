@@ -25,7 +25,7 @@ public class DBAdapter {
     public static final String KEY_DATE = "Date";
     public static final String KEY_HEUREDEB = "heureDebut";
     public static final String KEY_HEUREFIN = "heureFin";
-    //public static final String KEY_IDPARTICIPANT = "idParticipant";
+    public static final String KEY_IDPARTICIPANT = "idParticipant";
 
     private static final String TAG = "DbAdapter";
     private DatabaseHelper mDbHelper;
@@ -57,7 +57,7 @@ public class DBAdapter {
                     KEY_DATE + "," +
                     KEY_HEUREDEB + "," +
                     KEY_HEUREFIN + "," +
-                    //KEY_IDPARTICIPANT + "," +
+                    KEY_IDPARTICIPANT + "," +
                     " UNIQUE (" + KEY_ROWIDEVENT +"));";
 
 
@@ -166,9 +166,10 @@ public class DBAdapter {
 
         if (mCursor.getCount()>0) {
             while (mCursor.moveToNext()){
+                String idParticipant=mCursor.getString(mCursor.getColumnIndex("_id"));
                 String nameParticipant=mCursor.getString(mCursor.getColumnIndex("name"));
                 String surnameParticipant=mCursor.getString(mCursor.getColumnIndex("surname"));
-                list.add(nameParticipant+" "+surnameParticipant);
+                list.add(idParticipant+" "+nameParticipant+" "+surnameParticipant);
             }
         }
         return list;
@@ -184,7 +185,7 @@ public class DBAdapter {
         eventValues.put(KEY_DATE , event.getEventDate());
         eventValues.put(KEY_HEUREDEB  , event.getEventStart());
         eventValues.put(KEY_HEUREFIN  , event.getEventEnd());
-        //eventValues.put(KEY_IDPARTICIPANT  , event.getIdParticipant());
+        eventValues.put(KEY_IDPARTICIPANT  , event.getIdParticipant());
         return mDb.insert(SQLITE_TABLE_EVENTS, null, eventValues);
     }
 
@@ -225,10 +226,6 @@ public class DBAdapter {
         return mCursor;
 
     }*/
-
-    public void insertSomeEvents() {
-        createEvent(new Event("cours","02/03/2021", "8h30", "16h30"));
-    }
 
 }
 
