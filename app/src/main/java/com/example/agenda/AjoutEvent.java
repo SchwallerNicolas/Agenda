@@ -33,7 +33,7 @@ public class AjoutEvent extends AppCompatActivity {
     int t1Hour, t1Minute, t2Hour, t2Minute;
     private CalendarView calendarView;
     private SQLiteDatabase sqLiteDatabase;
-    public DBAdapter dbHelper;
+    public DBAdapter dbHelper=new DBAdapter(this);
     private EditText editText;
     private Button buttonEvent;
 
@@ -141,17 +141,17 @@ public class AjoutEvent extends AppCompatActivity {
                 ArrayList listparticipant;
 
                 Toast.makeText(AjoutEvent.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
-                if(nameEvent.isEmpty() || selectedDate == null)
+                /*if(nameEvent.isEmpty() || selectedDate == null)
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                     calendar = Calendar.getInstance();
                     dateFormat = new SimpleDateFormat("dd/MM");
                     selectedDate = dateFormat.format(calendar.getTime());
-                }else {
-                    Event event = new Event(nameEvent,selectedDate,heureD,heureF);
-                    dbHelper.createEvent(event);
-                    Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
-                }
+                }else {*/
+                Event event = new Event(nameEvent,selectedDate,heureD,heureF);
+                dbHelper.createEvent(event);
+                Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                //}
                 Intent intent = new Intent();
                 setResult(2, intent);
                 finish();
