@@ -225,5 +225,35 @@ public class DBAdapter {
 
     }
 
+    public ArrayList<String> CompareEvents(String compareDate) throws SQLException {
+        Log.w(TAG, compareDate);
+        ArrayList<String> list=new ArrayList<String>();
+        Cursor mCursor = null;
+        if (compareDate == null  ||  compareDate.length () == 0)  {
+            mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
+                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                    null, null, null, null, null);
+
+        } else {
+            String where = KEY_DATE + "=?";
+            String[] whereArgs = {compareDate};
+            mCursor = mDb.query(true, SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
+                             KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
+                    where, whereArgs,
+                    null, null, null, null);
+        }
+        if (mCursor.getCount()>0) {
+            while (mCursor.moveToNext()){
+                String idEvent=mCursor.getString(mCursor.getColumnIndex("_id"));
+                String Date=mCursor.getString(mCursor.getColumnIndex("Date"));
+                String heureDebut=mCursor.getString(mCursor.getColumnIndex("heureDebut"));
+                String heureFin=mCursor.getString(mCursor.getColumnIndex("heureFin"));
+                list.add(idEvent+" "+Date+" "+heureDebut+" "+heureFin);
+            }
+        }
+        return list;
+
+    }
+
 }
 

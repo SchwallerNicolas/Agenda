@@ -19,7 +19,7 @@ import android.widget.Toolbar;
 
 public class EventListActivity extends AppCompatActivity {
 
-    private SimpleCursorAdapter dataAdapter2;
+    static SimpleCursorAdapter dataAdapter2;
 
     private String belongsTo;
 

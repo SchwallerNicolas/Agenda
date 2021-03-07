@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -42,10 +43,10 @@ public class AjoutEvent extends AppCompatActivity {
 
     ArrayList<String> listParticipant;
     ArrayList<String> listParticipantSelec=new ArrayList<String>();
-    String selectedDate;
-    String nameEvent;
-    String heureD;
-    String heureF;
+    String selectedDate=null;
+    String nameEvent=null;
+    String heureD=null;
+    String heureF=null;
 
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
@@ -149,16 +150,27 @@ public class AjoutEvent extends AppCompatActivity {
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Toast.makeText(AjoutEvent.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
-                if(nameEvent.isEmpty() || selectedDate == null||heureF==null||heureD==null||listParticipantSelec.isEmpty())
+                if(nameEvent==null || selectedDate==null || heureF==null||heureD==null ||listParticipantSelec.isEmpty())
                 {
                     Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
-                }else {
-                    for(int i=0;i<listParticipantSelec.size();i++){
-                        HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
-                    }
-                    Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                else {
+                    //SimpleCursorAdapter dataAdapter3 = EventListActivity.dataAdapter2;
+                    //DBAdapter.compareEvents(selectedDate);
+                    /*int h1=Integer.parseInt(heureD.toString().substring(0,heureD.toString().indexOf(':')));
+                    int m1=Integer.parseInt(heureD.toString().substring(1,heureD.toString().indexOf(':')));
+                    int h2=Integer.parseInt(heureF.toString().substring(0,heureF.toString().indexOf(':')));
+                    int m2=Integer.parseInt(heureF.toString().substring(1,heureF.toString().indexOf(':')));
+                    if((h1>h2) || (h1==h2 && m1>m2)){
+                        Toast.makeText(AjoutEvent.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
+                    }
+                    else {*/
+                        for(int i=0;i<listParticipantSelec.size();i++){
+                            HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
+                        }
+                        Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                    //}
+                }
                 Intent intent = new Intent();
                 setResult(2, intent);
                 finish();
