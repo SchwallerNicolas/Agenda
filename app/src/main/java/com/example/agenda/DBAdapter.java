@@ -36,6 +36,7 @@ public class DBAdapter {
     // version 1 : création de la table People dans la db
     // version 2 : ajout de la table Events dans la db
     // version 4 : modif table Event, suppression col idParticipant
+    // version 5 : modif table Event, ajout col idParticipant
     private static final int DATABASE_VERSION = 5;
 
     private final Context mCtx;
@@ -50,7 +51,6 @@ public class DBAdapter {
     private static final String CREATE_TABLE_EVENTS =
             "CREATE TABLE if not exists " + SQLITE_TABLE_EVENTS + " (" +
                     KEY_ROWIDEVENT + " integer PRIMARY KEY autoincrement," +
-                    //KEY_WHOSEEVENT + "integer," +
                     KEY_NOMEVENT + "," +
                     KEY_DATE + "," +
                     KEY_HEUREDEB + "," +
@@ -100,7 +100,9 @@ public class DBAdapter {
         }
     }
 
+    //---------------------------USERS
 
+    // Ajout d'un utilisateur à la bdd
     public long createPerson(Person person) {
 
         ContentValues initialValues = new ContentValues();
@@ -110,10 +112,10 @@ public class DBAdapter {
         return mDb.insert(SQLITE_TABLE_USERS, null, initialValues);
     }
 
+    // Supprimer un utilisateur spécifique
     public void deletePerson(String NameToDelete) {
         mDb.delete(SQLITE_TABLE_USERS, "name=?", new String[]{NameToDelete});
     }
-
 
     /*public boolean deleteAllPersons() {
         int doneDelete = 0;
@@ -122,6 +124,7 @@ public class DBAdapter {
         return doneDelete > 0;
     }*/
 
+    // Chercher un utilisatuer par son prénom
     public Cursor fetchPersonsByName(String inputText) throws SQLException {
         Log.w(TAG, inputText);
         Cursor mCursor = null;
@@ -144,6 +147,7 @@ public class DBAdapter {
 
     }
 
+    // Chercher * de la table
     public Cursor fetchAllPersons() {
 
         Cursor mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
@@ -156,6 +160,7 @@ public class DBAdapter {
         return mCursor;
     }
 
+    //
     public ArrayList<String> getAllPersonne() {
         ArrayList<String> list=new ArrayList<String>();
         Cursor mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
@@ -173,8 +178,9 @@ public class DBAdapter {
         return list;
     }
 
-    //
+    //---------------------------EVENTS
 
+    // Ajout d'un évènement à la table Event
     public long createEvent(Event event) {
 
         ContentValues eventValues = new ContentValues();
@@ -186,10 +192,12 @@ public class DBAdapter {
         return mDb.insert(SQLITE_TABLE_EVENTS, null, eventValues);
     }
 
+    // Supprimer un évènement
     public void deleteEvent(String eventToDelete) {
         mDb.delete(SQLITE_TABLE_EVENTS,  "nameEvent=?", new String[]{eventToDelete});
     }
 
+    // Checher tous les évènements (cf. EventListActivity)
     public Cursor fetchAllEvents() {
 
         Cursor mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
@@ -202,6 +210,9 @@ public class DBAdapter {
         return mCursor;
     }
 
+    // Chercher un évènement spécifique à partir d'un paramètre
+    // Utilisé l'id de l'utilisateur cliqué
+    // intent.putExtra() dans ItemOnClick() (cf. HomePageActivity)
     public Cursor fetchYourEvents(String whoseEvent) throws SQLException {
         Log.w(TAG, whoseEvent);
         Cursor mCursor = null;
@@ -253,6 +264,37 @@ public class DBAdapter {
         }
         return list;
 
+    }
+
+    public ArrayList<String> fetchYourEvent(String whoseEvent) throws SQLException {
+        Log.w(TAG, whoseEvent);
+        ArrayList<String> list = new ArrayList<String>();
+        Cursor mCursor = null;
+        if (whoseEvent == null || whoseEvent.length() == 0) {
+            mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[]{KEY_ROWIDEVENT,
+                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                    null, null, null, null, null);
+
+        } else {
+            String where = KEY_IDPARTICIPANT + "=?";
+            String[] whereArgs = {whoseEvent};
+            mCursor = mDb.query(true, SQLITE_TABLE_EVENTS, new String[]{KEY_ROWIDEVENT,
+                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                    where, whereArgs,
+                    null, null, null, null);
+        }
+        if (mCursor.getCount() > 0) {
+            while (mCursor.moveToNext()) {
+                String idEvenement = mCursor.getString(mCursor.getColumnIndex("_id"));
+                String nomEvenement = mCursor.getString(mCursor.getColumnIndex("nonEvent"));
+                String dateEvenement = mCursor.getString(mCursor.getColumnIndex("Date"));
+                String debutEvenement = mCursor.getString(mCursor.getColumnIndex("heureDebut"));
+                String finEvenement = mCursor.getString(mCursor.getColumnIndex("heureFin"));
+                String idMit = mCursor.getString(mCursor.getColumnIndex("idParticipant"));
+                list.add(idEvenement + " " + nomEvenement + " " + dateEvenement + " " + debutEvenement + " " + finEvenement + " " + idMit);
+            }
+        }
+        return list;
     }
 
 }

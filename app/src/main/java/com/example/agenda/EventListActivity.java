@@ -43,7 +43,7 @@ public class EventListActivity extends AppCompatActivity {
         versAjoutEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(EventListActivity.this, AjoutEvent.class);
+                Intent intent2 = new Intent(EventListActivity.this, AjoutEventActivity.class);
                 intent2.putExtra("belongs2", belongsTo);
                 startActivityForResult(intent2,2);
             }

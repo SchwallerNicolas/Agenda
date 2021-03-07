@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -17,20 +16,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AjoutEvent extends AppCompatActivity {
+public class AjoutEventActivity extends AppCompatActivity {
 
     TextView tvTimer1, tvTimer2;
     int t1Hour, t1Minute, t2Hour, t2Minute;
@@ -95,7 +92,7 @@ public class AjoutEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog=new TimePickerDialog(
-                    AjoutEvent.this,
+                    AjoutEventActivity.this,
                     new TimePickerDialog.OnTimeSetListener(){
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -123,7 +120,7 @@ public class AjoutEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog=new TimePickerDialog(
-                    AjoutEvent.this,
+                    AjoutEventActivity.this,
                             new TimePickerDialog.OnTimeSetListener() {
                                 @Override
                                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -149,10 +146,10 @@ public class AjoutEvent extends AppCompatActivity {
 
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Toast.makeText(AjoutEvent.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AjoutEventActivity.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
                 if(nameEvent==null || selectedDate==null || heureF==null||heureD==null ||listParticipantSelec.isEmpty())
                 {
-                    Toast.makeText(AjoutEvent.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AjoutEventActivity.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //SimpleCursorAdapter dataAdapter3 = EventListActivity.dataAdapter2;
@@ -162,13 +159,13 @@ public class AjoutEvent extends AppCompatActivity {
                     int h2=Integer.parseInt(heureF.toString().substring(0,heureF.toString().indexOf(':')));
                     int m2=Integer.parseInt(heureF.toString().substring(1,heureF.toString().indexOf(':')));
                     if((h1>h2) || (h1==h2 && m1>m2)){
-                        Toast.makeText(AjoutEvent.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AjoutEventActivity.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
                     }
                     else {*/
                         for(int i=0;i<listParticipantSelec.size();i++){
                             HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
                         }
-                        Toast.makeText(AjoutEvent.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AjoutEventActivity.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                     //}
                 }
                 Intent intent = new Intent();
@@ -181,11 +178,11 @@ public class AjoutEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(listParticipantSelec.contains(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')))==true){
-                    Toast.makeText(AjoutEvent.this, "Participant déjà ajouté", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AjoutEventActivity.this, "Participant déjà ajouté", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     listParticipantSelec.add(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')));
-                    Toast.makeText(AjoutEvent.this, "Participant ajouté", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AjoutEventActivity.this, "Participant ajouté", Toast.LENGTH_SHORT).show();
                 }
             }
         });

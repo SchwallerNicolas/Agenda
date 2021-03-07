@@ -11,7 +11,7 @@
         android:theme="@style/Theme.Agenda">
         <activity android:name=".EventListActivity"></activity>
         <activity android:name=".AddUserActivity" />
-        <activity android:name=".AjoutEvent" />
+        <activity android:name=".AjoutEventActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
