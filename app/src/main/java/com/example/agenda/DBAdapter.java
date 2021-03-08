@@ -194,7 +194,7 @@ public class DBAdapter {
 
     // Supprimer un évènement
     public void deleteEvent(String eventToDelete) {
-        mDb.delete(SQLITE_TABLE_EVENTS,  "nameEvent=?", new String[]{eventToDelete});
+        mDb.delete(SQLITE_TABLE_EVENTS,  "nomEvent=?", new String[]{eventToDelete});
     }
 
     // Checher tous les évènements (cf. EventListActivity)

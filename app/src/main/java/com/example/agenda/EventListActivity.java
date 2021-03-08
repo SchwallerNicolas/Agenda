@@ -16,6 +16,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import static com.example.agenda.HomePageActivity.*;
+
 
 public class EventListActivity extends AppCompatActivity {
 
@@ -34,7 +36,7 @@ public class EventListActivity extends AppCompatActivity {
         super.setActionBar(toolbar);
 
         belongsTo = getIntent().getStringExtra("belongs");
-        HomePageActivity.dbHelper.open();
+        dbHelper.open();
 
 
         DisplayEventListView();
@@ -53,7 +55,7 @@ public class EventListActivity extends AppCompatActivity {
     private void DisplayEventListView() {
 
         //Cursor cursor = HomePageActivity.dbHelper.fetchAllEvents();
-        Cursor cursor = HomePageActivity.dbHelper.fetchYourEvents(belongsTo);
+        Cursor cursor = dbHelper.fetchYourEvents(belongsTo);
 
             String[] Eventcolumns = new String[]{
                     DBAdapter.KEY_NOMEVENT,
@@ -94,7 +96,7 @@ public class EventListActivity extends AppCompatActivity {
                 //get the cursor, positioned to corresponding row in the result set
                 Cursor cursor = (Cursor) eventListview.getItemAtPosition(position);
                 String EventoDelete = cursor.getString(cursor.getColumnIndexOrThrow("nomEvent"));
-                HomePageActivity.dbHelper.deleteEvent(EventoDelete);
+                dbHelper.deleteEvent(EventoDelete);
                 Toast.makeText(EventListActivity.this, "Deleted "+parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
                 DisplayEventListView();
                 dataAdapter2.notifyDataSetChanged();
