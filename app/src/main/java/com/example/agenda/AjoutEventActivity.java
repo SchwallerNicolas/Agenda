@@ -182,7 +182,7 @@ public class AjoutEventActivity extends AppCompatActivity {
                 return res;
             }
 
-            public boolean DateConflit(ArrayList participant, String date, String heureD, String heureF){
+            public boolean DateConflit(ArrayList<String> participant, String date, String heureD, String heureF){
                 boolean res=false;
                 ArrayList<String> listEventPersonne=new ArrayList<String>();
                 int i=0;
@@ -193,10 +193,10 @@ public class AjoutEventActivity extends AppCompatActivity {
                 int NewEventDebut=(60*60*h1)+(60*m1);
                 int NewEventFin=(60*60*h2)+(60*m2);
 
-                if(participant.size()>=2){
+                //if(participant.size()>=2){
                     while (i<participant.size() && res==false){
                         i++;
-                        listEventPersonne=HomePageActivity.dbHelper.fetchYourEvent(participant.get(i).toString());
+                        listEventPersonne=HomePageActivity.dbHelper.fetchYourEvent(participant.get(i));
                         for(int j=1; j<listEventPersonne.size();j++){
                             if(date==listEventPersonne.get(j).split(" ")[2]){
                                 int h11=Integer.parseInt(listEventPersonne.get(j).split(" ")[3].split(":")[0]);
@@ -212,7 +212,7 @@ public class AjoutEventActivity extends AppCompatActivity {
                             }
                         }
                     }
-                }
+               // }
 
                 return res;
             }
