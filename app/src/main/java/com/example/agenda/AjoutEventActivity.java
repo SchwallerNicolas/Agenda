@@ -151,26 +151,43 @@ public class AjoutEventActivity extends AppCompatActivity {
                 {
                     Toast.makeText(AjoutEventActivity.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                 }
+                else if (CheckHour()==false){
+                    Toast.makeText(AjoutEventActivity.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
+                }
                 else {
+                    //Toast.makeText(AjoutEventActivity.this, Integer.parseInt(heureD.toString().substring(0,heureD.toString().indexOf(":"))), Toast.LENGTH_SHORT).show();
                     //SimpleCursorAdapter dataAdapter3 = EventListActivity.dataAdapter2;
                     //DBAdapter.compareEvents(selectedDate);
-                    /*int h1=Integer.parseInt(heureD.toString().substring(0,heureD.toString().indexOf(':')));
-                    int m1=Integer.parseInt(heureD.toString().substring(1,heureD.toString().indexOf(':')));
-                    int h2=Integer.parseInt(heureF.toString().substring(0,heureF.toString().indexOf(':')));
-                    int m2=Integer.parseInt(heureF.toString().substring(1,heureF.toString().indexOf(':')));
-                    if((h1>h2) || (h1==h2 && m1>m2)){
-                        Toast.makeText(AjoutEventActivity.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
+
+                    /*if(CheckHour()){
+                        //Toast.makeText(AjoutEventActivity.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
                     }
                     else {*/
                         for(int i=0;i<listParticipantSelec.size();i++){
                             HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
                         }
                         Toast.makeText(AjoutEventActivity.this, "Event ajouté", Toast.LENGTH_SHORT).show();
-                    //}
-                }
+                    }
+               // }
                 Intent intent = new Intent();
                 setResult(2, intent);
                 finish();
+            }
+
+            public boolean CheckHour(){
+                boolean res= true;
+                int h1=0;
+                int m1=0;
+                int h2=0;
+                int m2=0;
+                h1=Integer.parseInt(heureD.toString().substring(0,heureD.toString().indexOf(":")));
+                m1=Integer.parseInt(heureD.toString().substring(1,heureD.toString().indexOf(":")));
+                h2=Integer.parseInt(heureF.toString().substring(0,heureF.toString().indexOf(":")));
+                m2=Integer.parseInt(heureF.toString().substring(1,heureF.toString().indexOf(":")));
+                if((h1>h2) || (h1==h2 && m1>m2)){
+                    res=false;
+                }
+                return res;
             }
         });
 
