@@ -266,18 +266,18 @@ public class DBAdapter {
 
     }
 
-    public ArrayList<String> fetchYourEvent(String whoseEvent) throws SQLException {
-        Log.w(TAG, whoseEvent);
+    public ArrayList<String> fetchYourEvent(String whoseEventId) throws SQLException {
+        Log.w(TAG, whoseEventId);
         ArrayList<String> list = new ArrayList<String>();
         Cursor mCursor = null;
-        if (whoseEvent == null || whoseEvent.length() == 0) {
+        if (whoseEventId == null || whoseEventId.length() == 0) {
             mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[]{KEY_ROWIDEVENT,
                             KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
                     null, null, null, null, null);
 
         } else {
             String where = KEY_IDPARTICIPANT + "=?";
-            String[] whereArgs = {whoseEvent};
+            String[] whereArgs = {whoseEventId};
             mCursor = mDb.query(true, SQLITE_TABLE_EVENTS, new String[]{KEY_ROWIDEVENT,
                             KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
                     where, whereArgs,
