@@ -190,6 +190,8 @@ public class AjoutEventActivity extends AppCompatActivity {
                 int m1=Integer.parseInt(heureD.split(":")[1]);
                 int h2=Integer.parseInt(heureF.split(":")[0]);
                 int m2=Integer.parseInt(heureF.split(":")[1]);
+                int NewEventDebut=(60*60*h1)+(60*m1);
+                int NewEventFin=(60*60*h2)+(60*m2);
 
                 if(participant.size()>=2){
                     while (i<participant.size() && res==false){
@@ -197,9 +199,16 @@ public class AjoutEventActivity extends AppCompatActivity {
                         listEventPersonne=HomePageActivity.dbHelper.fetchYourEvent(participant.get(i).toString());
                         for(int j=1; j<listEventPersonne.size();j++){
                             if(date==listEventPersonne.get(j).split(" ")[2]){
-                                //if((h1>=Integer.parseInt(listEventPersonne.get(j).split(" ")[2]) && )){
+                                int h11=Integer.parseInt(listEventPersonne.get(j).split(" ")[3].split(":")[0]);
+                                int m11=Integer.parseInt(listEventPersonne.get(j).split(" ")[3].split(":")[1]);
+                                int h22=Integer.parseInt(listEventPersonne.get(j).split(" ")[4].split(":")[0]);
+                                int m22=Integer.parseInt(listEventPersonne.get(j).split(" ")[4].split(":")[1]);
+                                int eventDebut=(60*60*h11)+(60*m11);
+                                int eventFin=(60*60*h22)+(60*m22);
 
-                                //}
+                                if((NewEventDebut<=eventDebut && NewEventFin>=eventFin) || (NewEventDebut>=eventDebut && NewEventFin<=eventFin) || (NewEventDebut>=eventDebut && NewEventFin>=eventFin) || (NewEventDebut<=eventDebut && NewEventFin<=eventFin)){
+                                    res=true;
+                                }
                             }
                         }
                     }
