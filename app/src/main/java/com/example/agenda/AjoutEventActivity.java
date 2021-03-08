@@ -180,10 +180,10 @@ public class AjoutEventActivity extends AppCompatActivity {
                 int m1=0;
                 int h2=0;
                 int m2=0;
-                h1=Integer.parseInt(heureD.toString().substring(0,heureD.toString().indexOf(":")));
-                m1=Integer.parseInt(heureD.toString().substring(1,heureD.toString().indexOf(":")));
-                h2=Integer.parseInt(heureF.toString().substring(0,heureF.toString().indexOf(":")));
-                m2=Integer.parseInt(heureF.toString().substring(1,heureF.toString().indexOf(":")));
+                h1=Integer.parseInt(heureD.substring(0,heureD.indexOf(":")));
+                m1=Integer.parseInt(heureD.substring(1, heureD.indexOf(":")));
+                h2=Integer.parseInt(heureF.substring(0, heureF.indexOf(":")));
+                m2=Integer.parseInt(heureF.substring(1, heureF.indexOf(":")));
                 if((h1>h2) || (h1==h2 && m1>m2)){
                     res=false;
                 }
