@@ -176,15 +176,13 @@ public class AjoutEventActivity extends AppCompatActivity {
 
             public boolean CheckHour(){
                 boolean res= true;
-                int h1=0;
-                int m1=0;
-                int h2=0;
-                int m2=0;
-                h1=Integer.parseInt(heureD.substring(0,heureD.indexOf(":")));
-                m1=Integer.parseInt(heureD.substring(1, heureD.indexOf(":")));
-                h2=Integer.parseInt(heureF.substring(0, heureF.indexOf(":")));
-                m2=Integer.parseInt(heureF.substring(1, heureF.indexOf(":")));
-                if((h1>h2) || (h1==h2 && m1>m2)){
+                int h1=Integer.parseInt(heureD);
+                int m1=Integer.parseInt(heureD);
+                int h2=Integer.parseInt(heureF);
+                int m2=Integer.parseInt(heureF);
+                int timeD=(60*60*h1)+(60*m1);
+                int timeF=(60*60*h2)+(60*m2);
+                if(timeD>timeF){
                     res=false;
                 }
                 return res;
