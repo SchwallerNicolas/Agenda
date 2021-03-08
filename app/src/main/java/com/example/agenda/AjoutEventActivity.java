@@ -152,23 +152,17 @@ public class AjoutEventActivity extends AppCompatActivity {
                     Toast.makeText(AjoutEventActivity.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                 }
                 else if (CheckHour(heureD, heureF) == false){
-                    Toast.makeText(AjoutEventActivity.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AjoutEventActivity.this, "Horaires impossibles", Toast.LENGTH_SHORT).show();
+                }
+                else if(DateConflit(listParticipantSelec, selectedDate, heureD, heureF)==true){
+                    Toast.makeText(AjoutEventActivity.this, "Un event se déroule déjà dans cette période! Veuillez changer!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    //Toast.makeText(AjoutEventActivity.this, Integer.parseInt(heureD.toString().substring(0,heureD.toString().indexOf(":"))), Toast.LENGTH_SHORT).show();
-                    //SimpleCursorAdapter dataAdapter3 = EventListActivity.dataAdapter2;
-                    //DBAdapter.compareEvents(selectedDate);
-
-                    /*if(CheckHour()){
-                        //Toast.makeText(AjoutEventActivity.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
+                    for(int i=0;i<listParticipantSelec.size();i++){
+                        HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
                     }
-                    else {*/
-                        for(int i=0;i<listParticipantSelec.size();i++){
-                            HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
-                        }
-                        Toast.makeText(AjoutEventActivity.this, "Event ajouté", Toast.LENGTH_SHORT).show();
-                    }
-               // }
+                    Toast.makeText(AjoutEventActivity.this, "Event ajouté", Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent();
                 setResult(2, intent);
                 finish();
@@ -178,8 +172,6 @@ public class AjoutEventActivity extends AppCompatActivity {
                 boolean res= true;
                 int h1=Integer.parseInt(heureD.split(":")[0]);
                 int m1=Integer.parseInt(heureD.split(":")[1]);
-
-
                 int h2=Integer.parseInt(heureF.split(":")[0]);
                 int m2=Integer.parseInt(heureF.split(":")[1]);
                 int heureDebut=(60*60*h1)+(60*m1);
@@ -187,6 +179,32 @@ public class AjoutEventActivity extends AppCompatActivity {
                 if(heureDebut>heureFin){
                     res=false;
                 }
+                return res;
+            }
+
+            public boolean DateConflit(ArrayList participant, String date, String heureD, String heureF){
+                boolean res=false;
+                ArrayList<String> listEventPersonne=new ArrayList<String>();
+                int i=0;
+                int h1=Integer.parseInt(heureD.split(":")[0]);
+                int m1=Integer.parseInt(heureD.split(":")[1]);
+                int h2=Integer.parseInt(heureF.split(":")[0]);
+                int m2=Integer.parseInt(heureF.split(":")[1]);
+
+                if(participant.size()>=2){
+                    while (i<participant.size() && res==false){
+                        i++;
+                        listEventPersonne=HomePageActivity.dbHelper.fetchYourEvent(participant.get(i).toString());
+                        for(int j=1; j<listEventPersonne.size();j++){
+                            if(date==listEventPersonne.get(j).split(" ")[2]){
+                                //if((h1>=Integer.parseInt(listEventPersonne.get(j).split(" ")[2]) && )){
+
+                                //}
+                            }
+                        }
+                    }
+                }
+
                 return res;
             }
         });
