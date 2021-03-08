@@ -147,11 +147,11 @@ public class AjoutEventActivity extends AppCompatActivity {
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Toast.makeText(AjoutEventActivity.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
-                if(nameEvent==null || selectedDate==null || heureF==null||heureD==null ||listParticipantSelec.isEmpty())
+                if(nameEvent==null || selectedDate==null || heureF == null || heureD == null || listParticipantSelec.isEmpty())
                 {
                     Toast.makeText(AjoutEventActivity.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
                 }
-                else if (CheckHour()==false){
+                else if (CheckHour(heureD, heureF) == false){
                     Toast.makeText(AjoutEventActivity.this, "horaires impossibles", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -174,15 +174,15 @@ public class AjoutEventActivity extends AppCompatActivity {
                 finish();
             }
 
-            public boolean CheckHour(){
+            public boolean CheckHour(String heureD, String heureF){
                 boolean res= true;
                 int h1=Integer.parseInt(heureD.substring(0,heureD.indexOf(":")));
                 int m1=Integer.parseInt(heureD.substring(1,heureD.indexOf(":")));
                 int h2=Integer.parseInt(heureF.substring(0,heureF.indexOf(":")));
                 int m2=Integer.parseInt(heureF.substring(1,heureF.indexOf(":")));
-                int heureD=(60*60*h1)+(60*m1);
-                int heureF=(60*60*h2)+(60*m2);
-                if(heureD>heureF){
+                int heureDebut=(60*60*h1)+(60*m1);
+                int heureFin=(60*60*h2)+(60*m2);
+                if(heureDebut>heureFin){
                     res=false;
                 }
                 return res;
