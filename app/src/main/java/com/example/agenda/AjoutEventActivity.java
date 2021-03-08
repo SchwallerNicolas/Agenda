@@ -154,7 +154,7 @@ public class AjoutEventActivity extends AppCompatActivity {
                 else if (CheckHour(heureD, heureF) == false){
                     Toast.makeText(AjoutEventActivity.this, "Horaires impossibles", Toast.LENGTH_SHORT).show();
                 }
-                else if(DateConflit(listParticipantSelec, selectedDate, heureD, heureF)==true){
+                else if(DateConflit(listParticipantSelec, selectedDate, heureD, heureF) == true){
                     Toast.makeText(AjoutEventActivity.this, "Un event se déroule déjà dans cette période! Veuillez changer!", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -184,7 +184,7 @@ public class AjoutEventActivity extends AppCompatActivity {
 
             public boolean DateConflit(ArrayList<String> participant, String date, String heureD, String heureF){
                 boolean res=false;
-                ArrayList<String> listEventPersonne=new ArrayList<String>();
+                ArrayList<String> listEventPersonne = new ArrayList<>();
                 int i=0;
                 int h1=Integer.parseInt(heureD.split(":")[0]);
                 int m1=Integer.parseInt(heureD.split(":")[1]);
@@ -196,7 +196,8 @@ public class AjoutEventActivity extends AppCompatActivity {
                 //if(participant.size()>=2){
                     while (i<participant.size() && res==false){
                         i++;
-                        listEventPersonne=HomePageActivity.dbHelper.fetchYourEvent(participant.get(i));
+                        String myId = participant.get(0);
+                        listEventPersonne = HomePageActivity.dbHelper.fetchYourEventInList(myId);
                         for(int j=1; j<listEventPersonne.size();j++){
                             if(date==listEventPersonne.get(j).split(" ")[2]){
                                 int h11=Integer.parseInt(listEventPersonne.get(j).split(" ")[3].split(":")[0]);

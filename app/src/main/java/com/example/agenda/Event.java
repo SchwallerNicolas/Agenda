@@ -2,7 +2,6 @@ package com.example.agenda;
 
 public class Event {
     int idEvent = 0;
-    String whichPerson = null;
     String EventName = null;
     String EventDate = null;
     String EventStart = null;
@@ -11,7 +10,6 @@ public class Event {
 
     public Event(String eventName, String eventDate, String eventStart, String eventEnd, String idParticipant) {
         super();
-        //this.whichPerson = user;
         this.EventName = eventName;
         this.EventDate = eventDate;
         this.EventStart = eventStart;

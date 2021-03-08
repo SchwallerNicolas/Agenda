@@ -266,7 +266,7 @@ public class DBAdapter {
 
     }
 
-    public ArrayList<String> fetchYourEvent(String whoseEventId) throws SQLException {
+    public ArrayList<String> fetchYourEventInList(String whoseEventId) throws SQLException {
         Log.w(TAG, whoseEventId);
         ArrayList<String> list = new ArrayList<String>();
         Cursor mCursor = null;
@@ -286,7 +286,7 @@ public class DBAdapter {
         if (mCursor.getCount() > 0) {
             while (mCursor.moveToNext()) {
                 String idEvenement = mCursor.getString(mCursor.getColumnIndex("_id"));
-                String nomEvenement = mCursor.getString(mCursor.getColumnIndex("nonEvent"));
+                String nomEvenement = mCursor.getString(mCursor.getColumnIndex("nomEvent"));
                 String dateEvenement = mCursor.getString(mCursor.getColumnIndex("Date"));
                 String debutEvenement = mCursor.getString(mCursor.getColumnIndex("heureDebut"));
                 String finEvenement = mCursor.getString(mCursor.getColumnIndex("heureFin"));
