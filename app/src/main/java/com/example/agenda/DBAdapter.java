@@ -124,7 +124,7 @@ public class DBAdapter {
         return doneDelete > 0;
     }*/
 
-    // Chercher un utilisatuer par son prénom
+    // Chercher un utilisateur par son prénom (cf HomePageActivity)
     public Cursor fetchPersonsByName(String inputText) throws SQLException {
         Log.w(TAG, inputText);
         Cursor mCursor = null;
@@ -147,7 +147,7 @@ public class DBAdapter {
 
     }
 
-    // Chercher * de la table
+    // Selectionner * de la table en cursor (cf DisplayUserListView dans HomePageActivity)
     public Cursor fetchAllPersons() {
 
         Cursor mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
@@ -160,7 +160,7 @@ public class DBAdapter {
         return mCursor;
     }
 
-    //
+    // Selectionner * de la table en Arraylist (cf AjoutEventActivity)
     public ArrayList<String> getAllPersonne() {
         ArrayList<String> list=new ArrayList<String>();
         Cursor mCursor = mDb.query(SQLITE_TABLE_USERS, new String[] {KEY_ROWID,
@@ -192,7 +192,7 @@ public class DBAdapter {
         return mDb.insert(SQLITE_TABLE_EVENTS, null, eventValues);
     }
 
-    // Supprimer un évènement
+    // Supprimer un évènement (cf EventListActivity)
     public void deleteEvent(String eventToDelete) {
         mDb.delete(SQLITE_TABLE_EVENTS,  "nomEvent=?", new String[]{eventToDelete});
     }
@@ -211,7 +211,7 @@ public class DBAdapter {
     }
 
     // Chercher un évènement spécifique à partir d'un paramètre
-    // Utilisé l'id de l'utilisateur cliqué
+    // avec l'id de l'utilisateur cliqué
     // intent.putExtra() dans ItemOnClick() (cf. HomePageActivity)
     public Cursor fetchYourEvents(String whoseEvent) throws SQLException {
         Log.w(TAG, whoseEvent);
@@ -266,6 +266,9 @@ public class DBAdapter {
 
     }
 
+    // Chercher un évènement spécifique à partir d'un paramètre
+    // avec l'id de l'utilisateur cliqué
+    // intent.putExtra() dans ItemOnClick() (cf. AjoutEventActivity)
     public ArrayList<String> fetchYourEventInList(String whoseEventId) throws SQLException {
         Log.w(TAG, whoseEventId);
         ArrayList<String> list = new ArrayList<String>();

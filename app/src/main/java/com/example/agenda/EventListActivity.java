@@ -38,7 +38,7 @@ public class EventListActivity extends AppCompatActivity {
         belongsTo = getIntent().getStringExtra("belongs");
         dbHelper.open();
 
-
+        // Afficher la liste des évènements
         DisplayEventListView();
 
         ImageView versAjoutEvent = findViewById(R.id.imageView3);
@@ -55,6 +55,7 @@ public class EventListActivity extends AppCompatActivity {
     private void DisplayEventListView() {
 
         //Cursor cursor = HomePageActivity.dbHelper.fetchAllEvents();
+        // Afficher les évènements correspondant aux user cliqué dans la liste des users
         Cursor cursor = dbHelper.fetchYourEvents(belongsTo);
 
             String[] Eventcolumns = new String[]{
@@ -80,21 +81,23 @@ public class EventListActivity extends AppCompatActivity {
         ListView eventListview = (ListView) findViewById(R.id.listView2);
         eventListview.setAdapter(dataAdapter2);
 
+        // Affichage d'un message toast quand cliqué
         eventListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> listView, View view,
                                     int position, long id) {
-                //Avoir le cursor lié à la ligne qui lui correspond
                 Cursor cursor = (Cursor) listView.getItemAtPosition(position);
                 Toast.makeText(EventListActivity.this, "Longer click to delete", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Suppression d'un évènement sur click long
         eventListview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //get the cursor, positioned to corresponding row in the result set
                 Cursor cursor = (Cursor) eventListview.getItemAtPosition(position);
+                //
                 String EventoDelete = cursor.getString(cursor.getColumnIndexOrThrow("nomEvent"));
                 dbHelper.deleteEvent(EventoDelete);
                 Toast.makeText(EventListActivity.this, "Deleted "+parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();

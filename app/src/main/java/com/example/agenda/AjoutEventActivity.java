@@ -88,6 +88,8 @@ public class AjoutEventActivity extends AppCompatActivity {
 
             }
         });
+
+        // Sélectionner l'heure de début
         tvTimer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +118,7 @@ public class AjoutEventActivity extends AppCompatActivity {
             }
         });
 
+        // Sélectionner l'heure de fin
         tvTimer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,12 +147,16 @@ public class AjoutEventActivity extends AppCompatActivity {
             }
         });
 
+        // Ajouter un évènement à la base de données
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Toast.makeText(AjoutEventActivity.this, ""+selectedDate, Toast.LENGTH_SHORT).show();
-                if(nameEvent==null || selectedDate==null || heureF == null || heureD == null || listParticipantSelec.isEmpty())
+                if(nameEvent==null || heureF == null || heureD == null || listParticipantSelec.isEmpty())
                 {
-                    Toast.makeText(AjoutEventActivity.this, "Please enter all the details correctly!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AjoutEventActivity.this, "Veuillez rentrer toutes les donnéesAdmin", Toast.LENGTH_SHORT).show();
+                }
+                else if (selectedDate==null){
+                    Toast.makeText(AjoutEventActivity.this, "Veuillez cliquer sur la date !", Toast.LENGTH_SHORT).show();
                 }
                 else if (CheckHour(heureD, heureF) == false){
                     Toast.makeText(AjoutEventActivity.this, "Horaires impossibles", Toast.LENGTH_SHORT).show();
@@ -164,10 +171,12 @@ public class AjoutEventActivity extends AppCompatActivity {
                     Toast.makeText(AjoutEventActivity.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent();
+                // Revenir à la page EventListAct.
                 setResult(2, intent);
                 finish();
             }
 
+            // Vérifier si il y a conflit des heures de début - fin
             public boolean CheckHour(String heureD, String heureF){
                 boolean res= true;
                 int h1=Integer.parseInt(heureD.split(":")[0]);
@@ -182,6 +191,7 @@ public class AjoutEventActivity extends AppCompatActivity {
                 return res;
             }
 
+            // Vérifier les conflits de dates
             public boolean DateConflit(ArrayList<String> participant, String date, String heureD, String heureF){
                 boolean res=false;
                 ArrayList<String> listEventPersonne = new ArrayList<>();
@@ -219,6 +229,7 @@ public class AjoutEventActivity extends AppCompatActivity {
             }
         });
 
+        // Ajouter un participant à l'évènement
         buttonParticipant.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

@@ -24,6 +24,7 @@ public class AddUserActivity extends HomePageActivity {
 
         monBouton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // Prendre les données entrées
                 String monPrenom = nameEntered.getText().toString();
                 String monNom = surnameEntered.getText().toString().toUpperCase();
 
@@ -36,6 +37,7 @@ public class AddUserActivity extends HomePageActivity {
                 }
 
                 Intent intent = new Intent();
+                // Revenir à l'activité précédente
                 setResult(1, intent);
                 finish();
             }
