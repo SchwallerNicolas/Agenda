@@ -25,6 +25,7 @@ public class DBAdapter {
     public static final String KEY_HEUREDEB = "heureDebut";
     public static final String KEY_HEUREFIN = "heureFin";
     public static final String KEY_IDPARTICIPANT = "idParticipant";
+    public static final String KEY_RAPPELEVENT = "rappelEvent";
 
     private static final String TAG = "DbAdapter";
     private DatabaseHelper mDbHelper;
@@ -35,9 +36,11 @@ public class DBAdapter {
     private static final String SQLITE_TABLE_EVENTS = "Events";
     // version 1 : création de la table People dans la db
     // version 2 : ajout de la table Events dans la db
-    // version 4 : modif table Event, suppression col idParticipant
-    // version 5 : modif table Event, ajout col idParticipant
-    private static final int DATABASE_VERSION = 5;
+    // version 3 : ajoutde la col Whose à Event (abandonnée, car redondant)
+    // version 4 : modif table Event, suppression col idParticipant pour simplifier le code
+    // version 5 : modif table Event, ajout col idParticipant pour gérer les ajouts de personnes
+    // version 6 : modif table Event, ajout col rappelEvent
+    private static final int DATABASE_VERSION = 6;
 
     private final Context mCtx;
 
@@ -56,6 +59,7 @@ public class DBAdapter {
                     KEY_HEUREDEB + "," +
                     KEY_HEUREFIN + "," +
                     KEY_IDPARTICIPANT + "," +
+                    KEY_RAPPELEVENT + "," +
                     " UNIQUE (" + KEY_ROWIDEVENT +"));";
 
 
@@ -189,6 +193,7 @@ public class DBAdapter {
         eventValues.put(KEY_HEUREDEB  , event.getEventStart());
         eventValues.put(KEY_HEUREFIN  , event.getEventEnd());
         eventValues.put(KEY_IDPARTICIPANT  , event.getIdParticipant());
+        eventValues.put(KEY_RAPPELEVENT  , event.getEventReminder());
         return mDb.insert(SQLITE_TABLE_EVENTS, null, eventValues);
     }
 
@@ -201,7 +206,7 @@ public class DBAdapter {
     public Cursor fetchAllEvents() {
 
         Cursor mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
-                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN},
+                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_RAPPELEVENT},
                 null, null, null, null, null);
 
         if (mCursor != null) {
@@ -218,14 +223,14 @@ public class DBAdapter {
         Cursor mCursor = null;
         if (whoseEvent == null  ||  whoseEvent.length () == 0)  {
             mCursor = mDb.query(SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
-                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                        KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT, KEY_RAPPELEVENT},
                     null, null, null, null, null);
 
         } else {
             String where = KEY_IDPARTICIPANT + "=?";
             String[] whereArgs = {whoseEvent};
             mCursor = mDb.query(true, SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
-                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT, KEY_RAPPELEVENT},
                     where, whereArgs,
                     null, null, null, null);
         }
@@ -298,6 +303,19 @@ public class DBAdapter {
             }
         }
         return list;
+    }
+
+    public Cursor fetchRappelValue () throws SQLException {
+        Cursor mCursor = null;
+         mCursor = mDb.query(true, SQLITE_TABLE_EVENTS, new String[] { KEY_RAPPELEVENT},
+                    null, null,
+                    null, null, null, null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+
     }
 
 }

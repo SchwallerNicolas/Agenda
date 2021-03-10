@@ -7,14 +7,16 @@ public class Event {
     String EventStart = null;
     String EventEnd = null;
     String idParticipant = null;
+    String EventReminder = null;
 
-    public Event(String eventName, String eventDate, String eventStart, String eventEnd, String idParticipant) {
+    public Event(String eventName, String eventDate, String eventStart, String eventEnd, String idParticipant, String eventReminder) {
         super();
         this.EventName = eventName;
         this.EventDate = eventDate;
         this.EventStart = eventStart;
         this.EventEnd = eventEnd;
         this.idParticipant = idParticipant;
+        this.EventReminder = eventReminder;
     }
 
     public int getIdEvent() {
@@ -23,13 +25,6 @@ public class Event {
     public void setIdEvent(int id) {
         this.idEvent = id;
     }
-
-    /*public String getWhichPerson() {
-        return whichPerson;
-    }
-    public void setWhichPerson(String name) {
-        this.EventName = name;
-    }*/
 
     public String getEventName() {
         return EventName;
@@ -61,6 +56,13 @@ public class Event {
 
     public String getIdParticipant() { return idParticipant; }
     public void setIdParticipant(String id) { this.idParticipant = id; }
+
+    public String getEventReminder() {
+        return EventReminder;
+    }
+    public void setEventReminder(String rappel) {
+        this.EventReminder = rappel;
+    }
 
 }
 

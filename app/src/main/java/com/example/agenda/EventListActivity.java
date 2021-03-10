@@ -4,11 +4,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,7 +24,7 @@ import static com.example.agenda.HomePageActivity.*;
 
 public class EventListActivity extends AppCompatActivity {
 
-    static SimpleCursorAdapter dataAdapter2;
+    static MyCursorAdapter dataAdapter2;
 
     private String belongsTo;
 
@@ -72,14 +75,12 @@ public class EventListActivity extends AppCompatActivity {
                     R.id.EventEnd,
             };
 
-            dataAdapter2 = new SimpleCursorAdapter(this, R.layout.event_info,
-                    cursor,
-                    Eventcolumns,
-                    boundTo2,
-                    0);
+        dataAdapter2 = new MyCursorAdapter(this, R.layout.event_info, cursor, Eventcolumns, boundTo2, 0);
 
         ListView eventListview = (ListView) findViewById(R.id.listView2);
         eventListview.setAdapter(dataAdapter2);
+        String reminder = cursor.getString(cursor.getColumnIndexOrThrow("rappelEvent"));
+
 
         // Affichage d'un message toast quand cliqué
         eventListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,9 +96,7 @@ public class EventListActivity extends AppCompatActivity {
         eventListview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //get the cursor, positioned to corresponding row in the result set
                 Cursor cursor = (Cursor) eventListview.getItemAtPosition(position);
-                //
                 String EventoDelete = cursor.getString(cursor.getColumnIndexOrThrow("nomEvent"));
                 dbHelper.deleteEvent(EventoDelete);
                 Toast.makeText(EventListActivity.this, "Deleted "+parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
@@ -116,5 +115,28 @@ public class EventListActivity extends AppCompatActivity {
             DisplayEventListView();
             dataAdapter2.notifyDataSetChanged();
         }
+    }
+
+    private class MyCursorAdapter extends SimpleCursorAdapter{
+
+        public MyCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+            super(context, layout, c, from, to, flags);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            Cursor reminderCursor = dbHelper.fetchYourEvents(belongsTo);
+            String reminder = reminderCursor.getString(reminderCursor.getColumnIndexOrThrow("rappelEvent"));
+            if(reminder == "1"){
+                view.setBackgroundColor(Color.rgb(220, 20, 60));
+            }
+            else {
+                view.setBackgroundColor(Color.rgb(255, 255, 255));
+            }
+            return view;
+        }
+
+
     }
 }

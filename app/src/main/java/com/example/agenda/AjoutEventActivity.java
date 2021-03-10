@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -37,6 +38,7 @@ public class AjoutEventActivity extends AppCompatActivity {
     private Button buttonEvent;
     private Spinner spinnerParticipant;
     private Button buttonParticipant;
+    private RadioButton radioButton;
 
     ArrayList<String> listParticipant;
     ArrayList<String> listParticipantSelec=new ArrayList<String>();
@@ -44,6 +46,7 @@ public class AjoutEventActivity extends AppCompatActivity {
     String nameEvent=null;
     String heureD=null;
     String heureF=null;
+    String rappelBool = "0";
 
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
@@ -57,7 +60,7 @@ public class AjoutEventActivity extends AppCompatActivity {
         tvTimer2=findViewById(R.id.tv_timer2);
         calendarView=findViewById(R.id.calendarView);
         editText= findViewById(R.id.idTextNameEvent);
-        buttonEvent=findViewById(R.id.buttonEvent);
+
         spinnerParticipant=findViewById(R.id.spinner);
         buttonParticipant=findViewById(R.id.buttonParticipant);
 
@@ -147,6 +150,9 @@ public class AjoutEventActivity extends AppCompatActivity {
             }
         });
 
+        buttonEvent = findViewById(R.id.buttonEvent);
+        radioButton = findViewById(R.id.radioButton);
+
         // Ajouter un évènement à la base de données
         buttonEvent.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -166,7 +172,7 @@ public class AjoutEventActivity extends AppCompatActivity {
                 }
                 else {
                     for(int i=0;i<listParticipantSelec.size();i++){
-                        HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
+                        HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i),rappelBool));
                     }
                     Toast.makeText(AjoutEventActivity.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
@@ -239,6 +245,19 @@ public class AjoutEventActivity extends AppCompatActivity {
                 else {
                     listParticipantSelec.add(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')));
                     Toast.makeText(AjoutEventActivity.this, "Participant ajouté", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = radioButton.isChecked();
+                if(checked){
+                    rappelBool = "1";
+                }
+                else {
+                    rappelBool = "0";
                 }
             }
         });
