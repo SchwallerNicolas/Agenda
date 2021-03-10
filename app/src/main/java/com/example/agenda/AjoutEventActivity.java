@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class AjoutEventActivity extends AppCompatActivity {
     private Button buttonEvent;
     private Spinner spinnerParticipant;
     private Button buttonParticipant;
+    private CheckBox buttonIsRappel;
 
     ArrayList<String> listParticipant;
     ArrayList<String> listParticipantSelec=new ArrayList<String>();
@@ -44,6 +46,7 @@ public class AjoutEventActivity extends AppCompatActivity {
     String nameEvent=null;
     String heureD=null;
     String heureF=null;
+    String isRappel="0";
 
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
@@ -60,6 +63,7 @@ public class AjoutEventActivity extends AppCompatActivity {
         buttonEvent=findViewById(R.id.buttonEvent);
         spinnerParticipant=findViewById(R.id.spinner);
         buttonParticipant=findViewById(R.id.buttonParticipant);
+        buttonIsRappel=findViewById(R.id.checkBox);
 
         listParticipant=HomePageActivity.dbHelper.getAllPersonne();
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, listParticipant);
@@ -154,12 +158,12 @@ public class AjoutEventActivity extends AppCompatActivity {
                 else if (CheckHour(heureD, heureF) == false){
                     Toast.makeText(AjoutEventActivity.this, "Horaires impossibles", Toast.LENGTH_SHORT).show();
                 }
-                else if(DateConflit(listParticipantSelec, selectedDate, heureD, heureF) == true){
+                /*else if(DateConflit(listParticipantSelec, selectedDate, heureD, heureF) == true){
                     Toast.makeText(AjoutEventActivity.this, "Un event se déroule déjà dans cette période! Veuillez changer!", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 else {
                     for(int i=0;i<listParticipantSelec.size();i++){
-                        HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i)));
+                        HomePageActivity.dbHelper.createEvent(new Event(nameEvent,selectedDate,heureD,heureF,listParticipantSelec.get(i),isRappel));
                     }
                     Toast.makeText(AjoutEventActivity.this, "Event ajouté", Toast.LENGTH_SHORT).show();
                 }
@@ -228,6 +232,18 @@ public class AjoutEventActivity extends AppCompatActivity {
                 else {
                     listParticipantSelec.add(spinnerParticipant.getSelectedItem().toString().substring(0,spinnerParticipant.getSelectedItem().toString().indexOf(' ')));
                     Toast.makeText(AjoutEventActivity.this, "Participant ajouté", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        buttonIsRappel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(buttonIsRappel.isChecked()){
+                    isRappel = "1";
+                }
+                else {
+                    isRappel = "0";
                 }
             }
         });

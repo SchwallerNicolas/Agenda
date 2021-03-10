@@ -7,14 +7,16 @@ public class Event {
     String EventStart = null;
     String EventEnd = null;
     String idParticipant = null;
+    String EventRappel = null;
 
-    public Event(String eventName, String eventDate, String eventStart, String eventEnd, String idParticipant) {
+    public Event(String eventName, String eventDate, String eventStart, String eventEnd, String idParticipant, String eventRappel) {
         super();
         this.EventName = eventName;
         this.EventDate = eventDate;
         this.EventStart = eventStart;
         this.EventEnd = eventEnd;
         this.idParticipant = idParticipant;
+        this.EventRappel = eventRappel;
     }
 
     public int getIdEvent() {
@@ -61,6 +63,9 @@ public class Event {
 
     public String getIdParticipant() { return idParticipant; }
     public void setIdParticipant(String id) { this.idParticipant = id; }
+
+    public String getRappel() { return EventRappel; }
+    public void setRappel(String eventRappel) { this.EventRappel = eventRappel; }
 
 }
 

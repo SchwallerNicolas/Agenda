@@ -25,6 +25,7 @@ public class DBAdapter {
     public static final String KEY_HEUREDEB = "heureDebut";
     public static final String KEY_HEUREFIN = "heureFin";
     public static final String KEY_IDPARTICIPANT = "idParticipant";
+    public static final String KEY_ISRAPPEL = "isRappel";
 
     private static final String TAG = "DbAdapter";
     private DatabaseHelper mDbHelper;
@@ -37,7 +38,7 @@ public class DBAdapter {
     // version 2 : ajout de la table Events dans la db
     // version 4 : modif table Event, suppression col idParticipant
     // version 5 : modif table Event, ajout col idParticipant
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     private final Context mCtx;
 
@@ -56,6 +57,7 @@ public class DBAdapter {
                     KEY_HEUREDEB + "," +
                     KEY_HEUREFIN + "," +
                     KEY_IDPARTICIPANT + "," +
+                    KEY_ISRAPPEL + ","+
                     " UNIQUE (" + KEY_ROWIDEVENT +"));";
 
 
@@ -189,6 +191,7 @@ public class DBAdapter {
         eventValues.put(KEY_HEUREDEB  , event.getEventStart());
         eventValues.put(KEY_HEUREFIN  , event.getEventEnd());
         eventValues.put(KEY_IDPARTICIPANT  , event.getIdParticipant());
+        eventValues.put(KEY_ISRAPPEL , event.getRappel());
         return mDb.insert(SQLITE_TABLE_EVENTS, null, eventValues);
     }
 
@@ -225,7 +228,7 @@ public class DBAdapter {
             String where = KEY_IDPARTICIPANT + "=?";
             String[] whereArgs = {whoseEvent};
             mCursor = mDb.query(true, SQLITE_TABLE_EVENTS, new String[] {KEY_ROWIDEVENT,
-                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT},
+                            KEY_NOMEVENT, KEY_DATE, KEY_HEUREDEB, KEY_HEUREFIN, KEY_IDPARTICIPANT, KEY_ISRAPPEL},
                     where, whereArgs,
                     null, null, null, null);
         }
